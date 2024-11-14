@@ -1,0 +1,32 @@
+aid: semrush
+name: Semrush
+description: >-
+  API delivers infinite possibilities for viewing our data. Pull valuable data
+  on competitors digital marketing activities without going through the
+  pre-defined Semrush user interface. And do it automatically! 
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - API
+created: '2024-11-14'
+modified: '2024-11-14'
+url: https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: semrush:semrush
+    name: Semrush
+    description: >-
+      API delivers infinite possibilities for viewing our data. Pull valuable
+      data on competitors digital marketing activities without going through the
+      pre-defined Semrush user interface. And do it automatically! 
+    humanURL: ' https://developer.semrush.com/api/'
+    tags:
+      - API
+    properties:
+      - type: Documentation
+        url: ' https://developer.semrush.com/api/'
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
