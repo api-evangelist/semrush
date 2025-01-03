@@ -9,6 +9,8 @@ apis:
     properties:
       - url: ' https://developer.semrush.com/api/'
         type: Documentation
+      - type: OpenAPI
+        url: properties/semrush-openapi.yml
     description: >-
       API delivers infinite possibilities for viewing our data. Pull valuable
       data on competitors digital marketing activities without going through the
