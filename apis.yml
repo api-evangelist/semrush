@@ -31,7 +31,7 @@ type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-14'
-modified: '2025-01-03'
+modified: '2026-03-16'
 position: Consuming
 description: >-
   SEMrush is an all-in-one digital marketing tool that helps businesses improve
@@ -44,5 +44,5 @@ description: >-
   the competitive world of online marketing.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
