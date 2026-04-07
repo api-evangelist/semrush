@@ -17,7 +17,7 @@ paths:
   /app-center-api/v2/jwt-token/:
     post:
       tags:
-        - JWT issuer
+        - JWT Issuer
       summary: Semrush Request API access token
       description: >
         Retrieves JWT for accessing Semrush API.
@@ -461,3 +461,7 @@ components:
         Use token retrieved from Jwt Issuer
 
         [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
+tags:
+  - name: Hermes Partner API
+  - name: JWT Issuer
+  - name: Partner Service

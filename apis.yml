@@ -1,14 +1,13 @@
 aid: semrush
-url: 
-  https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml
 apis:
   - aid: semrush:semrush
     name: Semrush
     tags:
-      - Search Engines
       - Keywords
       - Marketing
       - Search Engine Marketing
+      - Search Engines
     humanURL: ' https://developer.semrush.com/api/'
     properties:
       - url: ' https://developer.semrush.com/api/'
@@ -24,8 +23,8 @@ apis:
       optimize their website for better search engine performance.
 name: Semrush
 tags:
-  - Search Engines
   - Data
+  - Search Engines
 type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
