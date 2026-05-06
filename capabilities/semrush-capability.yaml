@@ -1,0 +1,266 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Semrush
+  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract
+    more customers. This powerful software provides a range of tools and features for keyword research, website analysis,
+    competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target,
+    analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush
+    is a essential tool for any business looking to succeed in the competitive world of online marketing.
+  tags:
+  - Semrush
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: semrush
+    baseUri: https://api.semrush.com
+    description: Semrush HTTP API.
+    authentication:
+      type: bearer
+      token: '{{SEMRUSH_TOKEN}}'
+    resources:
+    - name: app-center-api-v2-jwt-token
+      path: /app-center-api/v2/jwt-token/
+      operations:
+      - name: post-app-center-api-v2-jwt-token
+        method: POST
+        description: Semrush Request API access token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-v4-app-center-v2-partner-viewer-status
+      path: /apis/v4/app-center/v2/partner/viewer-status
+      operations:
+      - name: post-apis-v4-app-center-v2-partner-viewer-status
+        method: POST
+        description: Semrush User status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-v4-hermes-v0-subscriptions
+      path: /apis/v4/hermes/v0/subscriptions
+      operations:
+      - name: get-apis-v4-hermes-v0-subscriptions
+        method: GET
+        description: Semrush Get available subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-v4-hermes-v0-user-user-id-subscription-id
+      path: /apis/v4/hermes/v0/user/{user_id}/subscription/{id}
+      operations:
+      - name: get-apis-v4-hermes-v0-user-user-id-subscription-
+        method: GET
+        description: Semrush Get user's subscription status
+        inputParameters:
+        - name: user_id
+          in: path
+          type: integer
+          required: true
+          description: User id
+        - name: id
+          in: path
+          type: integer
+          required: true
+          description: Subscription id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-v4-hermes-v0-event
+      path: /apis/v4/hermes/v0/event
+      operations:
+      - name: post-apis-v4-hermes-v0-event
+        method: POST
+        description: Semrush Send notification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: apis-v4-hermes-v0-event-id
+      path: /apis/v4/hermes/v0/event/{id}
+      operations:
+      - name: get-apis-v4-hermes-v0-event-id
+        method: GET
+        description: Semrush Get event status
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Subscription id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: semrush-rest
+    description: REST adapter for Semrush.
+    resources:
+    - path: /app-center-api/v2/jwt-token/
+      name: post-app-center-api-v2-jwt-token
+      operations:
+      - method: POST
+        name: post-app-center-api-v2-jwt-token
+        description: Semrush Request API access token
+        call: semrush.post-app-center-api-v2-jwt-token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/v4/app-center/v2/partner/viewer-status
+      name: post-apis-v4-app-center-v2-partner-viewer-status
+      operations:
+      - method: POST
+        name: post-apis-v4-app-center-v2-partner-viewer-status
+        description: Semrush User status
+        call: semrush.post-apis-v4-app-center-v2-partner-viewer-status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/v4/hermes/v0/subscriptions
+      name: get-apis-v4-hermes-v0-subscriptions
+      operations:
+      - method: GET
+        name: get-apis-v4-hermes-v0-subscriptions
+        description: Semrush Get available subscriptions
+        call: semrush.get-apis-v4-hermes-v0-subscriptions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/v4/hermes/v0/user/{user_id}/subscription/{id}
+      name: get-apis-v4-hermes-v0-user-user-id-subscription
+      operations:
+      - method: GET
+        name: get-apis-v4-hermes-v0-user-user-id-subscription-
+        description: Semrush Get user's subscription status
+        call: semrush.get-apis-v4-hermes-v0-user-user-id-subscription-
+        with:
+          user_id: rest.user_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/v4/hermes/v0/event
+      name: post-apis-v4-hermes-v0-event
+      operations:
+      - method: POST
+        name: post-apis-v4-hermes-v0-event
+        description: Semrush Send notification
+        call: semrush.post-apis-v4-hermes-v0-event
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /apis/v4/hermes/v0/event/{id}
+      name: get-apis-v4-hermes-v0-event-id
+      operations:
+      - method: GET
+        name: get-apis-v4-hermes-v0-event-id
+        description: Semrush Get event status
+        call: semrush.get-apis-v4-hermes-v0-event-id
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: semrush-mcp
+    transport: http
+    description: MCP adapter for Semrush for AI agent use.
+    tools:
+    - name: post-app-center-api-v2-jwt-token
+      description: Semrush Request API access token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: semrush.post-app-center-api-v2-jwt-token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-apis-v4-app-center-v2-partner-viewer-status
+      description: Semrush User status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: semrush.post-apis-v4-app-center-v2-partner-viewer-status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-apis-v4-hermes-v0-subscriptions
+      description: Semrush Get available subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: semrush.get-apis-v4-hermes-v0-subscriptions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-apis-v4-hermes-v0-user-user-id-subscription-
+      description: Semrush Get user's subscription status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: semrush.get-apis-v4-hermes-v0-user-user-id-subscription-
+      with:
+        user_id: tools.user_id
+        id: tools.id
+      inputParameters:
+      - name: user_id
+        type: integer
+        description: User id
+        required: true
+      - name: id
+        type: integer
+        description: Subscription id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: post-apis-v4-hermes-v0-event
+      description: Semrush Send notification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: semrush.post-apis-v4-hermes-v0-event
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-apis-v4-hermes-v0-event-id
+      description: Semrush Get event status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: semrush.get-apis-v4-hermes-v0-event-id
+      with:
+        id: tools.id
+      inputParameters:
+      - name: id
+        type: string
+        description: Subscription id
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    SEMRUSH_TOKEN: SEMRUSH_TOKEN
