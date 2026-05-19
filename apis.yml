@@ -1,44 +1,47 @@
 aid: semrush
 url: https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/semrush
 apis:
-  - aid: semrush:semrush
-    name: Semrush
-    tags:
-      - Keywords
-      - Marketing
-      - Search Engine Marketing
-      - Search Engines
-    humanURL: ' https://developer.semrush.com/api/'
-    properties:
-      - url: ' https://developer.semrush.com/api/'
-        type: Documentation
-      - url: properties/semrush-openapi.yml
-        type: OpenAPI
-    description: >-
-      SEMrush is an all-in-one digital marketing tool that helps businesses improve
-      their online visibility and attract more customers. This powerful software provides
-      a range of tools and features for keyword research, website analysis, competitive
-      analysis, and more. With SEMrush, businesses can track their online rankings,
-      discover new keywords to target, analyze their competitors' strategies, and
-      optimize their website for better search engine performance.
+- aid: semrush:semrush
+  name: Semrush
+  tags:
+  - Keywords
+  - Marketing
+  - Search Engine Marketing
+  - Search Engines
+  humanURL: ' https://developer.semrush.com/api/'
+  properties:
+  - url: ' https://developer.semrush.com/api/'
+    type: Documentation
+  - url: properties/semrush-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/semrush-hermes-partner-api.yaml
+  - type: NaftikoCapability
+    url: capabilities/semrush-jwt-issuer.yaml
+  - type: NaftikoCapability
+    url: capabilities/semrush-partner-service.yaml
+  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract
+    more customers. This powerful software provides a range of tools and features for keyword research, website analysis,
+    competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target,
+    analyze their competitors' strategies, and optimize their website for better search engine performance.
 name: Semrush
 tags:
-  - Data
-  - Search Engines
+- Data
+- Search Engines
 kind: contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2024-11-14'
-modified: '2026-03-16'
+modified: '2026-05-19'
 position: Consuming
-description: >-
-  SEMrush is an all-in-one digital marketing tool that helps businesses improve their
-  online visibility and attract more customers. This powerful software provides a
-  range of tools and features for keyword research, website analysis, competitive
-  analysis, and more. With SEMrush, businesses can track their online rankings, discover
-  new keywords to target, analyze their competitors' strategies, and optimize their
-  website for better search engine performance.
+description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract
+  more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive
+  analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their
+  competitors' strategies, and optimize their website for better search engine performance.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 specificationVersion: '0.19'
