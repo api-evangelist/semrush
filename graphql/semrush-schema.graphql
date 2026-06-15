@@ -1,0 +1,1018 @@
+"""
+Semrush GraphQL Schema
+Conceptual schema derived from the Semrush REST API.
+Covers keyword research, domain analytics, backlink data, site audit,
+position tracking, content analysis, advertising research, and traffic analytics.
+"""
+
+# ─── Scalars ────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar URL
+scalar JSON
+
+# ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum Database {
+  US
+  UK
+  CA
+  AU
+  DE
+  FR
+  ES
+  IT
+  BR
+  RU
+  IN
+  MX
+  JP
+  NL
+  PL
+  SE
+  BE
+  CH
+  DK
+  FI
+  NO
+  AR
+  SG
+  ZA
+  TR
+  UA
+}
+
+enum SearchType {
+  ORGANIC
+  PAID
+  PLA
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+enum AuditSeverity {
+  ERROR
+  WARNING
+  NOTICE
+  INFO
+}
+
+enum DeviceType {
+  DESKTOP
+  MOBILE
+}
+
+enum BacklinkType {
+  TEXT
+  IMAGE
+  FORM
+  FRAME
+  CANONICAL
+  ALTERNATE
+  REDIRECT
+  REDIR_301
+  REDIR_302
+}
+
+enum PositionChangeType {
+  UP
+  DOWN
+  NEW
+  LOST
+  UNCHANGED
+}
+
+enum ContentType {
+  ARTICLE
+  BLOG_POST
+  LANDING_PAGE
+  PRODUCT_PAGE
+  FORUM
+  REVIEW
+}
+
+enum EventState {
+  REGISTERED
+  DELAYED
+  PROCESSED
+  NOTHING_TO_DO
+  BLOCKED
+}
+
+enum SubscriptionPlan {
+  PRO
+  GURU
+  BUSINESS
+  ENTERPRISE
+}
+
+# ─── Common / Shared Types ───────────────────────────────────────────────────
+
+type ResponseMeta {
+  success: Boolean!
+  statusCode: Int!
+  requestId: String!
+}
+
+type PageInfo {
+  totalCount: Int!
+  page: Int!
+  pageSize: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type DateRange {
+  startDate: DateTime!
+  endDate: DateTime!
+}
+
+type Trend {
+  date: DateTime!
+  value: Float!
+}
+
+type CompetitorEntry {
+  domain: String!
+  commonKeywords: Int
+  organicKeywords: Int
+  paidKeywords: Int
+  relevanceScore: Float
+}
+
+# ─── Authentication & Auth Types ─────────────────────────────────────────────
+
+type JwtToken {
+  jwt: String!
+  expiresAt: DateTime
+}
+
+type ApiKey {
+  key: String!
+  createdAt: DateTime!
+  lastUsed: DateTime
+  plan: SubscriptionPlan
+  unitsLeft: Int
+  unitsTotal: Int
+}
+
+# ─── User / Account Types ────────────────────────────────────────────────────
+
+type User {
+  id: Int!
+  email: String!
+  login: String
+  firstName: String
+  lastName: String
+  plan: SubscriptionPlan
+  apiUnitsBalance: ApiUnitsBalance
+  projects: [Project!]
+}
+
+type ApiUnitsBalance {
+  available: Int!
+  used: Int!
+  total: Int!
+  resetDate: DateTime
+}
+
+type ViewerStatus {
+  isMainProductActive: Boolean!
+  isAppTakenForFree: Boolean!
+  isMainProductTrialAvailable: Boolean!
+  productTrialsAvailable: [String!]
+  activeProducts: [ActiveProduct!]
+}
+
+type ActiveProduct {
+  id: String!
+  value: Int!
+}
+
+# ─── Project Types ───────────────────────────────────────────────────────────
+
+type Project {
+  id: String!
+  name: String!
+  domain: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  owner: User
+  settings: ProjectSettings
+  campaigns: [Campaign!]
+}
+
+type ProjectSettings {
+  targetCountry: String
+  targetDevice: DeviceType
+  language: String
+  competitors: [String!]
+}
+
+type Campaign {
+  id: String!
+  projectId: String!
+  name: String!
+  keywords: [String!]
+  createdAt: DateTime!
+}
+
+# ─── Keyword Research Types ──────────────────────────────────────────────────
+
+type Keyword {
+  phrase: String!
+  volume: Int
+  cpc: Float
+  competition: Float
+  numberOfResults: Int
+  trend: [Int]
+  kd: Int
+  intent: [KeywordIntent!]
+}
+
+type KeywordOverview {
+  phrase: String!
+  database: Database!
+  volume: Int
+  cpc: Float
+  competition: Float
+  cpcDistribution: CpcDistribution
+  trend: [Trend!]
+  results: Int
+  numberOfResults: Int
+  kd: Int
+  intent: [KeywordIntent!]
+}
+
+type KeywordIntent {
+  label: String!
+  score: Float
+}
+
+type CpcDistribution {
+  low: Float
+  medium: Float
+  high: Float
+}
+
+type KeywordIdea {
+  phrase: String!
+  volume: Int
+  cpc: Float
+  competition: Float
+  kd: Int
+  relatedPhrases: [String!]
+}
+
+type RelatedKeyword {
+  phrase: String!
+  relevance: Float
+  volume: Int
+  cpc: Float
+  kd: Int
+}
+
+type BroadMatchKeyword {
+  phrase: String!
+  volume: Int
+  cpc: Float
+  kd: Int
+}
+
+type PhraseMatchKeyword {
+  phrase: String!
+  volume: Int
+  cpc: Float
+  kd: Int
+}
+
+type KeywordSearchResult {
+  items: [Keyword!]!
+  pageInfo: PageInfo!
+}
+
+# ─── Domain Analytics Types ──────────────────────────────────────────────────
+
+type DomainOverview {
+  domain: String!
+  authorityScore: Int
+  organicSearchTraffic: Int
+  paidSearchTraffic: Int
+  backlinks: Int
+  referringDomains: Int
+  organicKeywords: Int
+  paidKeywords: Int
+  trafficCost: Float
+}
+
+type DomainOrganicKeyword {
+  keyword: String!
+  position: Int!
+  previousPosition: Int
+  positionDifference: Int
+  searchVolume: Int
+  cpc: Float
+  url: String
+  trafficShare: Float
+  kd: Int
+}
+
+type DomainPaidKeyword {
+  keyword: String!
+  position: Int!
+  cpc: Float
+  trafficShare: Float
+  url: String
+  landingPage: String
+}
+
+type DomainCompetitor {
+  domain: String!
+  commonKeywords: Int!
+  organicKeywords: Int
+  organicTraffic: Int
+  authorityScore: Int
+  relevanceScore: Float
+}
+
+type SubdomainReport {
+  subdomain: String!
+  organicKeywords: Int
+  organicTraffic: Int
+  trafficCost: Float
+}
+
+type DomainVsComparisonResult {
+  domains: [String!]!
+  commonKeywords: Int!
+  uniqueKeywordsByDomain: JSON
+}
+
+# ─── Backlink Types ──────────────────────────────────────────────────────────
+
+type BacklinkOverview {
+  target: String!
+  totalBacklinks: Int!
+  referringDomains: Int!
+  referringIPs: Int!
+  referringSubnets: Int!
+  authorityScore: Int
+  followBacklinks: Int
+  nofollowBacklinks: Int
+  textBacklinks: Int
+  imageBacklinks: Int
+  formBacklinks: Int
+}
+
+type Backlink {
+  sourceUrl: String!
+  targetUrl: String!
+  anchorText: String
+  type: BacklinkType!
+  isFollow: Boolean!
+  firstSeen: DateTime
+  lastSeen: DateTime
+  sourcePageScore: Int
+  sourceDomainScore: Int
+  externalLinks: Int
+  internalLinks: Int
+}
+
+type ReferringDomain {
+  domain: String!
+  authorityScore: Int
+  backlinksCount: Int!
+  followBacklinks: Int
+  nofollowBacklinks: Int
+  firstSeen: DateTime
+  lastSeen: DateTime
+  categories: [String!]
+}
+
+type AnchorText {
+  anchor: String!
+  externalLinks: Int!
+  refDomains: Int
+  backlinks: Int
+}
+
+type BacklinkSearchResult {
+  items: [Backlink!]!
+  pageInfo: PageInfo!
+}
+
+type BacklinksNewLostResult {
+  newBacklinks: [Backlink!]!
+  lostBacklinks: [Backlink!]!
+  dateRange: DateRange!
+}
+
+# ─── Site Audit Types ────────────────────────────────────────────────────────
+
+type SiteAuditCampaign {
+  id: String!
+  projectId: String!
+  domain: String!
+  status: String!
+  lastAuditDate: DateTime
+  totalPages: Int
+  crawledPages: Int
+  brokenPages: Int
+  issuesSummary: AuditIssuesSummary
+}
+
+type AuditIssuesSummary {
+  errors: Int!
+  warnings: Int!
+  notices: Int!
+  totalIssues: Int!
+  healthScore: Int
+}
+
+type AuditIssue {
+  id: String!
+  type: String!
+  severity: AuditSeverity!
+  description: String!
+  affectedPages: Int!
+  recommendation: String
+  category: String
+}
+
+type AuditPage {
+  url: String!
+  statusCode: Int
+  pageSize: Int
+  loadTime: Float
+  internalLinks: Int
+  externalLinks: Int
+  issues: [AuditIssue!]
+  title: String
+  metaDescription: String
+  h1: String
+  canonicalUrl: String
+  indexable: Boolean
+}
+
+type CrawlConfiguration {
+  maxPages: Int
+  crawlDelay: Float
+  respectRobotsTxt: Boolean
+  userAgent: String
+  includedPaths: [String!]
+  excludedPaths: [String!]
+}
+
+# ─── Position Tracking Types ─────────────────────────────────────────────────
+
+type PositionTrackingCampaign {
+  id: String!
+  projectId: String!
+  domain: String!
+  targetDevice: DeviceType!
+  targetCountry: String!
+  keywords: [TrackedKeyword!]!
+  createdAt: DateTime!
+}
+
+type TrackedKeyword {
+  keyword: String!
+  position: Int
+  previousPosition: Int
+  positionChange: PositionChangeType
+  searchVolume: Int
+  estimatedTraffic: Int
+  url: String
+  cpc: Float
+  lastUpdated: DateTime
+}
+
+type PositionHistory {
+  keyword: String!
+  positions: [DatedPosition!]!
+}
+
+type DatedPosition {
+  date: DateTime!
+  position: Int
+  url: String
+}
+
+type VisibilityScore {
+  date: DateTime!
+  score: Float!
+  estimatedTraffic: Int
+}
+
+type SerpFeature {
+  feature: String!
+  present: Boolean!
+  owned: Boolean
+}
+
+# ─── Content Analytics Types ─────────────────────────────────────────────────
+
+type ContentAuditResult {
+  url: String!
+  title: String
+  wordCount: Int
+  socialShares: Int
+  backlinks: Int
+  organicTraffic: Int
+  contentType: ContentType
+  issues: [ContentIssue!]
+  lastModified: DateTime
+}
+
+type ContentIssue {
+  type: String!
+  severity: AuditSeverity!
+  description: String!
+}
+
+type TopicResearchResult {
+  topic: String!
+  subtopics: [Subtopic!]!
+  headlines: [String!]
+  questions: [String!]
+  relatedSearches: [String!]
+}
+
+type Subtopic {
+  phrase: String!
+  volume: Int
+  difficulty: Int
+  efficiency: Float
+}
+
+type ContentTemplate {
+  keyword: String!
+  recommendedWordCount: Int
+  readability: String
+  semanticallyRelatedWords: [SemanticWord!]
+  competitorsToOutrank: [String!]
+  targetScore: Int
+}
+
+type SemanticWord {
+  word: String!
+  recommended: Boolean
+  importance: Float
+}
+
+# ─── Advertising Research Types ──────────────────────────────────────────────
+
+type AdHistory {
+  domain: String!
+  keyword: String!
+  position: Int
+  title: String
+  description: String
+  displayUrl: String
+  startDate: DateTime
+  endDate: DateTime
+}
+
+type AdKeyword {
+  keyword: String!
+  position: Int
+  cpc: Float
+  trafficShare: Float
+  volume: Int
+  landingPage: String
+}
+
+type DisplayAdvert {
+  domain: String!
+  title: String
+  description: String
+  displayUrl: String
+  imageUrl: String
+  targetUrl: String
+  publisherDomains: [String!]
+  firstSeen: DateTime
+  lastSeen: DateTime
+}
+
+type PlaKeyword {
+  keyword: String!
+  productTitle: String
+  price: String
+  seller: String
+  position: Int
+  trafficShare: Float
+}
+
+type AdCompetitor {
+  domain: String!
+  commonKeywords: Int!
+  paidKeywords: Int
+  estimatedAdsBudget: Float
+  cpc: Float
+}
+
+# ─── Traffic Analytics Types ─────────────────────────────────────────────────
+
+type TrafficOverview {
+  domain: String!
+  totalVisits: Int!
+  uniqueVisitors: Int
+  pagesPerVisit: Float
+  avgVisitDuration: Float
+  bounceRate: Float
+  directTrafficShare: Float
+  searchTrafficShare: Float
+  referralTrafficShare: Float
+  socialTrafficShare: Float
+  mailTrafficShare: Float
+  paidTrafficShare: Float
+  dateRange: DateRange!
+}
+
+type TrafficSource {
+  source: String!
+  medium: String
+  visits: Int!
+  share: Float
+  pagesPerVisit: Float
+  avgVisitDuration: Float
+  bounceRate: Float
+}
+
+type GeographicTraffic {
+  country: String!
+  countryCode: String!
+  visits: Int!
+  share: Float!
+  change: Float
+}
+
+type TopPage {
+  url: String!
+  visits: Int!
+  share: Float
+  uniqueVisitors: Int
+  bounceRate: Float
+  avgVisitDuration: Float
+}
+
+type AudienceOverlap {
+  domain: String!
+  commonAudience: Float!
+  uniqueAudience: Float
+  totalAudience: Int
+}
+
+# ─── Notification / Event Types ──────────────────────────────────────────────
+
+type Subscription {
+  id: Int!
+  name: String!
+  description: String
+}
+
+type Event {
+  id: String!
+  type: String!
+  userId: Int!
+  registeredAt: DateTime!
+  state: EventState!
+  stateChangedAt: DateTime
+  decision: String
+  actions: [EventAction!]
+}
+
+type EventAction {
+  id: String!
+  createdAt: DateTime!
+  type: String!
+  finished: Boolean!
+  notification: ActionNotification
+}
+
+type ActionNotification {
+  channel: String!
+  subscriptionId: Int!
+  recipientId: Int!
+}
+
+# ─── Root Query Type ─────────────────────────────────────────────────────────
+
+type Query {
+  # Authentication
+  currentUser: User
+
+  # Domain overview
+  domainOverview(domain: String!, database: Database): DomainOverview
+
+  # Domain organic keywords
+  domainOrganicKeywords(
+    domain: String!
+    database: Database
+    page: Int
+    pageSize: Int
+    sortBy: String
+    sortOrder: SortOrder
+  ): KeywordSearchResult
+
+  # Domain paid keywords
+  domainPaidKeywords(
+    domain: String!
+    database: Database
+    page: Int
+    pageSize: Int
+  ): [DomainPaidKeyword!]
+
+  # Domain competitors
+  domainCompetitors(
+    domain: String!
+    database: Database
+    searchType: SearchType
+  ): [DomainCompetitor!]
+
+  # Subdomain report
+  subdomainReport(domain: String!, database: Database): [SubdomainReport!]
+
+  # Keyword overview
+  keywordOverview(phrase: String!, database: Database!): KeywordOverview
+
+  # Keyword ideas
+  keywordIdeas(
+    phrase: String!
+    database: Database!
+    limit: Int
+  ): [KeywordIdea!]
+
+  # Related keywords
+  relatedKeywords(
+    phrase: String!
+    database: Database!
+    limit: Int
+  ): [RelatedKeyword!]
+
+  # Phrase match keywords
+  phraseMatchKeywords(
+    phrase: String!
+    database: Database!
+    limit: Int
+  ): [PhraseMatchKeyword!]
+
+  # Broad match keywords
+  broadMatchKeywords(
+    phrase: String!
+    database: Database!
+    limit: Int
+  ): [BroadMatchKeyword!]
+
+  # Backlink overview
+  backlinkOverview(target: String!): BacklinkOverview
+
+  # Backlinks list
+  backlinks(
+    target: String!
+    page: Int
+    pageSize: Int
+    sortBy: String
+    sortOrder: SortOrder
+    type: BacklinkType
+    isFollow: Boolean
+  ): BacklinkSearchResult
+
+  # Referring domains
+  referringDomains(
+    target: String!
+    page: Int
+    pageSize: Int
+  ): [ReferringDomain!]
+
+  # Anchor texts
+  anchorTexts(target: String!, page: Int, pageSize: Int): [AnchorText!]
+
+  # New / lost backlinks
+  newLostBacklinks(
+    target: String!
+    dateRange: DateRangeInput!
+  ): BacklinksNewLostResult
+
+  # Site audit campaigns
+  siteAuditCampaigns(projectId: String!): [SiteAuditCampaign!]
+
+  # Site audit campaign details
+  siteAuditCampaign(campaignId: String!): SiteAuditCampaign
+
+  # Audit issues
+  auditIssues(
+    campaignId: String!
+    severity: AuditSeverity
+    category: String
+  ): [AuditIssue!]
+
+  # Audit pages
+  auditPages(
+    campaignId: String!
+    page: Int
+    pageSize: Int
+  ): [AuditPage!]
+
+  # Position tracking campaigns
+  positionTrackingCampaigns(projectId: String!): [PositionTrackingCampaign!]
+
+  # Position tracking campaign
+  positionTrackingCampaign(campaignId: String!): PositionTrackingCampaign
+
+  # Keyword position history
+  positionHistory(
+    campaignId: String!
+    keyword: String!
+    dateRange: DateRangeInput!
+  ): PositionHistory
+
+  # Visibility score over time
+  visibilityScore(
+    campaignId: String!
+    dateRange: DateRangeInput!
+  ): [VisibilityScore!]
+
+  # Content audit
+  contentAudit(domain: String!, limit: Int): [ContentAuditResult!]
+
+  # Topic research
+  topicResearch(topic: String!, database: Database!): TopicResearchResult
+
+  # Content template
+  contentTemplate(keyword: String!, database: Database!): ContentTemplate
+
+  # Advertising research — ad history
+  adHistory(
+    domain: String!
+    database: Database!
+    page: Int
+    pageSize: Int
+  ): [AdHistory!]
+
+  # Advertising research — paid keywords
+  adKeywords(
+    domain: String!
+    database: Database!
+    page: Int
+    pageSize: Int
+  ): [AdKeyword!]
+
+  # Display advertising
+  displayAdverts(domain: String!, page: Int, pageSize: Int): [DisplayAdvert!]
+
+  # PLA keywords
+  plaKeywords(
+    domain: String!
+    database: Database!
+    page: Int
+    pageSize: Int
+  ): [PlaKeyword!]
+
+  # Ad competitors
+  adCompetitors(domain: String!, database: Database!): [AdCompetitor!]
+
+  # Traffic overview
+  trafficOverview(
+    domain: String!
+    dateRange: DateRangeInput!
+    device: DeviceType
+  ): TrafficOverview
+
+  # Traffic sources
+  trafficSources(
+    domain: String!
+    dateRange: DateRangeInput!
+  ): [TrafficSource!]
+
+  # Geographic traffic
+  geographicTraffic(
+    domain: String!
+    dateRange: DateRangeInput!
+  ): [GeographicTraffic!]
+
+  # Top pages by traffic
+  topPages(
+    domain: String!
+    dateRange: DateRangeInput!
+    page: Int
+    pageSize: Int
+  ): [TopPage!]
+
+  # Audience overlap
+  audienceOverlap(
+    domain: String!
+    competitors: [String!]!
+    dateRange: DateRangeInput!
+  ): [AudienceOverlap!]
+
+  # Domain vs domain comparison
+  domainVsComparison(
+    domains: [String!]!
+    database: Database!
+    searchType: SearchType
+  ): DomainVsComparisonResult
+
+  # Projects
+  projects: [Project!]
+  project(id: String!): Project
+
+  # Event status
+  event(id: String!): Event
+
+  # Available subscriptions (notification channels)
+  availableSubscriptions: [Subscription!]
+
+  # User subscription status
+  userSubscriptionStatus(userId: Int!, subscriptionId: Int!): Boolean
+
+  # API key info
+  apiKeyInfo: ApiKey
+}
+
+# ─── Root Mutation Type ──────────────────────────────────────────────────────
+
+type Mutation {
+  # Authentication
+  requestJwtToken(jwt: String!): JwtToken
+
+  # Projects
+  createProject(input: CreateProjectInput!): Project
+  updateProject(id: String!, input: UpdateProjectInput!): Project
+  deleteProject(id: String!): Boolean
+
+  # Position tracking
+  createPositionTrackingCampaign(input: CreateCampaignInput!): PositionTrackingCampaign
+  addKeywordsToTracking(campaignId: String!, keywords: [String!]!): PositionTrackingCampaign
+  removeKeywordsFromTracking(campaignId: String!, keywords: [String!]!): PositionTrackingCampaign
+  deletePositionTrackingCampaign(campaignId: String!): Boolean
+
+  # Site audit
+  createSiteAuditCampaign(input: CreateSiteAuditInput!): SiteAuditCampaign
+  startSiteAudit(campaignId: String!): SiteAuditCampaign
+  deleteSiteAuditCampaign(campaignId: String!): Boolean
+
+  # Events / notifications
+  sendEvent(input: SendEventInput!): String
+
+  # User management
+  updateUserSettings(input: UpdateUserSettingsInput!): User
+}
+
+# ─── Input Types ─────────────────────────────────────────────────────────────
+
+input DateRangeInput {
+  startDate: DateTime!
+  endDate: DateTime!
+}
+
+input CreateProjectInput {
+  name: String!
+  domain: String!
+  targetCountry: String
+  targetDevice: DeviceType
+  language: String
+}
+
+input UpdateProjectInput {
+  name: String
+  targetCountry: String
+  targetDevice: DeviceType
+  language: String
+}
+
+input CreateCampaignInput {
+  projectId: String!
+  name: String!
+  keywords: [String!]!
+  targetDevice: DeviceType
+  targetCountry: String!
+}
+
+input CreateSiteAuditInput {
+  projectId: String!
+  domain: String!
+  maxPages: Int
+  crawlDelay: Float
+  respectRobotsTxt: Boolean
+  userAgent: String
+  includedPaths: [String!]
+  excludedPaths: [String!]
+}
+
+input SendEventInput {
+  type: String!
+  id: String
+  userId: Int!
+  data: String
+}
+
+input UpdateUserSettingsInput {
+  firstName: String
+  lastName: String
+  email: String
+  language: String
+}
