@@ -1,42 +1,52 @@
 # Semrush (semrush)
-SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml)
+SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance.
+
+**APIs.json:** [https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Contract 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+- **Position:** Consuming
+- **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Search Engines, Data
+- Data
+- Search Engines
 
 ## Timestamps
 
-- **Created:** 2024-11-14 
-- **Modified:** 2025-01-03 
+- **Created:** 2024-11-14
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Semrush
-API delivers infinite possibilities for viewing our data. Pull valuable data on competitors digital marketing activities without going through the pre-defined Semrush user interface. And do it automatically! 
 
-**Human URL:** [ https://developer.semrush.com/api/]( https://developer.semrush.com/api/)
+SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance.
 
+- **Human URL:** [ https://developer.semrush.com/api/]( https://developer.semrush.com/api/)
 
-#### Tags:
+#### Tags
 
- - API
+- Keywords
+- Marketing
+- Search Engine Marketing
+- Search Engines
 
 #### Properties
 
 - [Documentation]( https://developer.semrush.com/api/)
+- [OpenAPI](properties/semrush-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/semrush.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/semrush.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [GitHub Organization](https://github.com/semrush)
+- [LinkedIn](https://www.linkedin.com/company/semrush)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
-**Email:** info@apievangelist.com
-
+**Email:** kin@apievangelist.com

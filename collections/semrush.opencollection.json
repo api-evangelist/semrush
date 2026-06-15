@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Semrush",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JWT Issuer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Semrush Request API access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.semrush.com/app-center-api/v2/jwt-token/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves JWT for accessing Semrush API.\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Partner Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Semrush User status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.semrush.com/apis/v4/app-center/v2/partner/viewer-status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves user status, related to the app (purchases, subscriptions)\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/viewer-status)\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Hermes Partner API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Semrush Get available subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.semrush.com/apis/v4/hermes/v0/subscriptions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all application's registered subscriptions\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#available-subscriptions)\n"
+        },
+        {
+          "info": {
+            "name": "Semrush Get user's subscription status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.semrush.com/apis/v4/hermes/v0/user/:user_id/subscription/:id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "User id"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Subscription id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#subscription-status)\n"
+        },
+        {
+          "info": {
+            "name": "Semrush Send notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.semrush.com/apis/v4/hermes/v0/event",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#sending-notification)\n"
+        },
+        {
+          "info": {
+            "name": "Semrush Get event status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.semrush.com/apis/v4/hermes/v0/event/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Subscription id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#event-status)\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
