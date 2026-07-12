@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/semrush-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: jwtIssuerToken
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |-
+    Use token retrieved from Jwt Issuer
+    [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
+  sources:
+  - openapi/semrush-openapi.yml

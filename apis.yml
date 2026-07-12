@@ -1,6 +1,10 @@
 aid: semrush
 url: https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml
 common:
+- type: DomainSecurity
+  url: security/semrush-domain-security.yml
+- type: Authentication
+  url: authentication/semrush-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/semrush
 - type: LinkedIn
