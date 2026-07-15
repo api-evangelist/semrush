@@ -1,6 +1,8 @@
 aid: semrush
 url: https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/semrush-agentic-access.yml
 - type: DomainSecurity
   url: security/semrush-domain-security.yml
 - type: Authentication
