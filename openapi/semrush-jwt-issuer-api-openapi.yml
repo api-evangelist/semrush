@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Semrush Hermes Partner API JWT Issuer API
+  version: 0.0.1
+  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.
+servers:
+- url: https://api.semrush.com
+tags:
+- name: JWT Issuer
+paths:
+  /app-center-api/v2/jwt-token/:
+    post:
+      tags:
+      - JWT Issuer
+      summary: Semrush Request API access token
+      description: 'Retrieves JWT for accessing Semrush API.
+
+        [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/issuerJwtRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/issuerJwtResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          description: Access denied
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/errorMessage'
+components:
+  schemas:
+    issuerJwtRequest:
+      type: object
+      properties:
+        jwt:
+          type: string
+          description: "JWT by [specification](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token#generate-a-jwt), \nsigned by your secret key\n"
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...0NiL86tQkUG25G3Y1QC2ma94sfe4cXcs8_bYcpw2OzY
+    issuerJwtResponse:
+      type: object
+      description: An object describing a JWT
+      properties:
+        jwt:
+          type: string
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...0NiL86tQkUG25G3Y1QC2ma94sfe4cXcs8_bYcpw2OzY
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+  responses:
+    '401':
+      description: Unauthorized. Incorrect JWT fields or signature
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+    '400':
+      description: Bad request. Something wrong with the request or JWT
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+  securitySchemes:
+    jwtIssuerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Use token retrieved from Jwt Issuer
+
+        [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
+
+        '

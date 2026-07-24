@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Semrush Hermes Partner API Partner Service API
+  version: 0.0.1
+  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.
+servers:
+- url: https://api.semrush.com
+tags:
+- name: Partner Service
+paths:
+  /apis/v4/app-center/v2/partner/viewer-status:
+    post:
+      tags:
+      - Partner Service
+      summary: Semrush User status
+      description: 'Retrieves user status, related to the app (purchases, subscriptions)
+
+        [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/viewer-status)
+
+        '
+      security:
+      - jwtIssuerToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/viewerStatusRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/viewerStatusResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+components:
+  responses:
+    '401':
+      description: Unauthorized. Incorrect JWT fields or signature
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+    '400':
+      description: Bad request. Something wrong with the request or JWT
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+  schemas:
+    responseMeta:
+      type: object
+      description: Response metadata
+      properties:
+        success:
+          type: boolean
+        status_code:
+          type: integer
+          example: 200
+        request_id:
+          type: string
+    viewerActiveProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID of product
+        value:
+          type: integer
+          description: Amount of bought product (1 for one-time products, >1 in other cases)
+          minimum: 0
+    viewerStatusRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          description: Semrush user ID
+    viewerStatusResponse:
+      type: object
+      description: Viewer Status response object
+      properties:
+        meta:
+          $ref: '#/components/schemas/responseMeta'
+        data:
+          type: object
+          description: An object describes user status, related to the app
+          properties:
+            is_main_product_active:
+              type: boolean
+              description: Shows if the app's main product is active
+            is_app_taken_for_free:
+              type: boolean
+              description: Shows if the app is taken for free
+            is_main_product_trial_available:
+              type: boolean
+              description: true if a user can activate trial for app's main product
+            product_trials_available:
+              type: array
+              description: All app's products ids, for which user can activate trial
+              items:
+                type: string
+                format: uuid
+                description: product id
+            active_products:
+              type: array
+              description: List of user's in-app purchases (bought products)
+              minItems: 0
+              items:
+                $ref: '#/components/schemas/viewerActiveProduct'
+            extra_user_data:
+              type: object
+              nullable: true
+              description: Reserved for future use
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+  securitySchemes:
+    jwtIssuerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Use token retrieved from Jwt Issuer
+
+        [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
+
+        '
