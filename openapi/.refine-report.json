@@ -1,0 +1,18 @@
+{
+  "provider": "semrush",
+  "sources": [
+    "semrush-hermes-partner-api-api-openapi.yml",
+    "semrush-jwt-issuer-api-openapi.yml",
+    "semrush-partner-service-api-openapi.yml"
+  ],
+  "outputs": [
+    "semrush-hermes-partner-api-api-openapi.yml",
+    "semrush-jwt-issuer-api-openapi.yml",
+    "semrush-partner-service-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
