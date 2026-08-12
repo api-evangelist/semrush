@@ -21,8 +21,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/semrush-hermes-partner-api-api-openapi.yml
-  - type: Documentation
-    url: ' https://developer.semrush.com/api/'
   - type: GraphQL
     url: graphql/semrush-graphql.md
 - aid: semrush:semrush-jwt-issuer-api
@@ -34,8 +32,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/semrush-jwt-issuer-api-openapi.yml
-  - type: Documentation
-    url: ' https://developer.semrush.com/api/'
   - type: GraphQL
     url: graphql/semrush-graphql.md
 - aid: semrush:semrush-partner-service-api
@@ -47,8 +43,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/semrush-partner-service-api-openapi.yml
-  - type: Documentation
-    url: ' https://developer.semrush.com/api/'
   - type: GraphQL
     url: graphql/semrush-graphql.md
 name: Semrush
