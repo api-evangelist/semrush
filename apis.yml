@@ -5,8 +5,72 @@ common:
   url: agentic-access/semrush-agentic-access.yml
 - type: DomainSecurity
   url: security/semrush-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/semrush-vulnerability-disclosure.yml
+- type: Security
+  url: security/semrush-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/semrush-trust-center.yml
+- type: Compliance
+  url: security/semrush-trust-center.yml
 - type: Authentication
   url: authentication/semrush-authentication.yml
+- type: OAuthScopes
+  url: scopes/semrush-scopes.yml
+- type: Conventions
+  url: conventions/semrush-conventions.yml
+- type: ErrorCatalog
+  url: errors/semrush-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/semrush-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/semrush-lifecycle.yml
+- type: Conformance
+  url: conformance/semrush-conformance.yml
+- type: ChangeLog
+  url: changelog/semrush-changelog.yml
+- type: Components
+  url: components/semrush-components.yml
+- type: DataModel
+  url: data-model/semrush-data-model.yml
+- type: Packages
+  url: packages/semrush-packages.yml
+- type: WellKnown
+  url: well-known/semrush-well-known.yml
+- type: MCPServer
+  url: mcp/semrush-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/semrush-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/semrush-llms.txt
+- type: Plans
+  url: plans/semrush-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/semrush-rate-limits.yml
+- type: FinOps
+  url: finops/semrush-finops.yml
+- type: DeveloperPortal
+  url: https://developer.semrush.com/api/
+- type: Documentation
+  url: https://developer.semrush.com/api/v4/
+- type: APIReference
+  url: https://developer.semrush.com/api/v4/seo/overview/
+- type: GettingStarted
+  url: https://developer.semrush.com/api/v4/get-started/quick-start/
+- type: Pricing
+  url: https://www.semrush.com/prices/
+- type: Signup
+  url: https://www.semrush.com/signup/
+- type: Support
+  url: https://www.semrush.com/kb/
+- type: Blog
+  url: https://www.semrush.com/blog/
+- type: TermsOfService
+  url: https://www.semrush.com/company/legal/terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.semrush.com/company/legal/privacy-policy/
 - type: GitHubOrganization
   url: https://github.com/semrush
 - type: LinkedIn
@@ -15,36 +79,75 @@ apis:
 - aid: semrush:semrush-hermes-partner-api-api
   name: Semrush Hermes Partner API API
   description: The Hermes Partner API API from Semrush — 4 operation(s) for hermes partner api.
-  humanURL: ' https://developer.semrush.com/api/'
+  humanURL: https://developer.semrush.com/api/
+  baseURL: https://api.semrush.com
   tags:
   - Hermes Partner API
   properties:
   - type: OpenAPI
     url: openapi/semrush-hermes-partner-api-api-openapi.yml
+  - type: Overlay
+    url: overlays/semrush-hermes-partner-api-api-overlay.yaml
+  - type: PostmanCollection
+    url: collections/semrush-hermes-partner-api-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/semrush-hermes-partner-api-api.opencollection.json
   - type: GraphQL
     url: graphql/semrush-graphql.md
 - aid: semrush:semrush-jwt-issuer-api
   name: Semrush JWT Issuer API
   description: The JWT Issuer API from Semrush — 1 operation(s) for jwt issuer.
-  humanURL: ' https://developer.semrush.com/api/'
+  humanURL: https://developer.semrush.com/api/
+  baseURL: https://api.semrush.com
   tags:
   - JWT Issuer
   properties:
   - type: OpenAPI
     url: openapi/semrush-jwt-issuer-api-openapi.yml
+  - type: Overlay
+    url: overlays/semrush-jwt-issuer-api-overlay.yaml
+  - type: PostmanCollection
+    url: collections/semrush-jwt-issuer-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/semrush-jwt-issuer-api.opencollection.json
   - type: GraphQL
     url: graphql/semrush-graphql.md
 - aid: semrush:semrush-partner-service-api
   name: Semrush Partner Service API
   description: The Partner Service API from Semrush — 1 operation(s) for partner service.
-  humanURL: ' https://developer.semrush.com/api/'
+  humanURL: https://developer.semrush.com/api/
+  baseURL: https://api.semrush.com
   tags:
   - Partner Service
   properties:
   - type: OpenAPI
     url: openapi/semrush-partner-service-api-openapi.yml
+  - type: Overlay
+    url: overlays/semrush-partner-service-api-overlay.yaml
+  - type: PostmanCollection
+    url: collections/semrush-partner-service-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/semrush-partner-service-api.opencollection.json
   - type: GraphQL
     url: graphql/semrush-graphql.md
+- aid: semrush:semrush-mcp
+  name: Semrush MCP
+  description: >-
+    Semrush's first-party hosted Model Context Protocol server. Streamable HTTP transport
+    only, OAuth-gated with the single scope mcp.access, and metered against the same API
+    unit balance as the REST APIs. Fronts the Trends API, the whole SEO API, and the
+    read-only methods of the Projects API v3.
+  humanURL: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
+  baseURL: https://mcp.semrush.com/v2/mcp
+  tags:
+  - MCP
+  - AI Agents
+  - Model Context Protocol
+  properties:
+  - type: MCPServer
+    url: mcp/semrush-mcp.yml
+  - type: Documentation
+    url: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
 name: Semrush
 tags:
 - Data
@@ -58,6 +161,9 @@ tags:
 - Keyword Research
 - Backlinks
 - Rank Tracking
+- AI Search Visibility
+- Local SEO
+- MCP
 kind: contract
 accessModel:
   pricing: freemium
@@ -75,7 +181,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/semrush.png
 access: 3rd-Party
 created: '2024-11-14'
-modified: '2026-05-19'
+modified: '2026-08-13'
 position: Consuming
 description: SEMrush is an all-in-one digital marketing tool that helps businesses
   improve their online visibility and attract more customers. This powerful software
@@ -87,3 +193,8 @@ maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 specificationVersion: '0.19'
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1
