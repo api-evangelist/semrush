@@ -1,0 +1,106 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTPS probes of every Semrush host named in apis.yml, the OpenAPI servers[] block, and the docs/MCP hosts
+description: >-
+  Probe record of RFC 8615 /.well-known/ discovery paths across every Semrush host.
+  Two real documents are served, both on the MCP host: RFC 9728 OAuth Protected Resource
+  metadata and RFC 8414 Authorization Server metadata. Every path on www.semrush.com,
+  api.semrush.com and developer.semrush.com misses.
+hosts:
+- host: mcp.semrush.com
+  paths:
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    file: semrush-mcp-oauth-protected-resource.json
+    note: >-
+      RFC 9728 protected-resource metadata for the v1 MCP endpoint. Names
+      https://oauth.semrush.com as the authorization server and scopes_supported [mcp.access].
+  - path: /.well-known/oauth-protected-resource/v2/mcp
+    status: 200
+    content_type: application/json
+    file: null
+    note: >-
+      Per-resource variant returned in the WWW-Authenticate challenge from POST
+      https://mcp.semrush.com/v2/mcp. Body is identical to the v1 document except
+      resource is https://mcp.semrush.com/v2/mcp.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: semrush-mcp-oauth-authorization-server.json
+    note: >-
+      RFC 8414 authorization server metadata. Declares authorization_code + refresh_token
+      grants, PKCE (S256 and plain), dynamic client registration, and a revocation endpoint.
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/agent-card.json
+    status: 401
+  - path: /.well-known/agent.json
+    status: 401
+- host: www.semrush.com
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: api.semrush.com
+  note: >-
+    Every path returns HTTP 400 with the plain-text body "query type not found". The
+    Standard API is a single query-string dispatcher (?key=&type=), so it has no path
+    routing at all and cannot serve a /.well-known/ document.
+  paths:
+  - path: /.well-known/security.txt
+    status: 400
+  - path: /.well-known/oauth-authorization-server
+    status: 400
+  - path: /.well-known/oauth-protected-resource
+    status: 400
+  - path: /.well-known/api-catalog
+    status: 400
+  - path: /.well-known/ai-plugin.json
+    status: 400
+  - path: /.well-known/agent-card.json
+    status: 400
+  - path: /.well-known/agent.json
+    status: 400
+- host: developer.semrush.com
+  note: Astro documentation site; every /.well-known/ path returns the site's 404 HTML shell.
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+summary:
+  hosts_probed: 4
+  paths_probed: 32
+  documents_served: 3
+  security_txt: false
+  agent_card: false
+  openid_configuration: false
+checked: '2026-08-13'

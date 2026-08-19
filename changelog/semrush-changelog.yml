@@ -1,0 +1,97 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.semrush.com/api/v4/introduction/release-notes/
+provider: Semrush
+providerId: semrush
+description: >-
+  Semrush maintains a dated API release-notes page on its developer portal. Entries are
+  human-authored prose grouped by month and day; there is no machine-readable feed, no
+  RSS, and no semantic version number attached to a release. The changelog is the only
+  published record of the v3 to v4 migration currently under way across every Semrush API.
+
+scheme:
+  versioning: major-version families (v3, v4) plus a per-API path version (v0, v1)
+  current_versions:
+  - api: Standard API (SEO, Trends, Projects)
+    versions:
+    - v3
+    - v4
+  - api: Backlinks
+    version: v4 (/apis/v4/backlinks/v1/)
+  - api: Keywords
+    version: v4 (/apis/v4/keywords/v1/)
+  - api: Projects
+    version: v4 (/apis/v4/projects/v1/)
+  - api: Listing Management
+    version: v4 (/apis/v4/local/v1/)
+  - api: Map Rank Tracker
+    version: v4 (/apis/v4/map-rank-tracker/v0/)
+  feed: null
+  feed_note: No RSS/Atom or JSON feed is published for the release notes.
+
+entries:
+- date: '2026-07-15'
+  breaking: false
+  additions: true
+  highlights:
+  - Documentation reorganized by API version with a v3/v4 version selector across references, authorization guides and resources.
+  - Version-specific API keys introduced — a v3 key works only with Version 3 APIs and a v4 key only with Version 4 APIs.
+  - New per-version quick-start guides published.
+- date: '2026-07-02'
+  breaking: false
+  additions: true
+  deprecations: true
+  highlights:
+  - Projects API v4 released with API key authorization.
+  - Projects API v3 and Projects API v4 (OAuth 2.0) methods deprecated; still operational temporarily.
+- date: '2026-06-11'
+  breaking: false
+  additions: true
+  deprecations: true
+  highlights:
+  - Backlinks API v4 released.
+  - Previous Backlinks API methods deprecated; still operational temporarily.
+- date: '2026-06-09'
+  breaking: false
+  additions: true
+  deprecations: true
+  highlights:
+  - Keyword API v4 released.
+  - Previous Keyword Reports API methods deprecated; still operational temporarily.
+- date: '2026-06-08'
+  breaking: false
+  additions: false
+  highlights:
+  - Listing Management tutorial and Local API overview rewritten for the current API.
+  - Documents renamed fields, partial location updates via PATCH with update_mask, create-location support, and limit/offset pagination.
+- date: '2026-06-02'
+  breaking: false
+  additions: false
+  highlights:
+  - Local API resources now include reusable Listing Management object descriptions.
+- date: '2026-05-29'
+  breaking: false
+  additions: true
+  deprecations: true
+  highlights:
+  - Listing Management API v4 released with Create Location, Delete Location, Get Listings, Enable/Disable Listing, image management, Get Payment Options and Get More Hour Types.
+  - Previous Listing Management API methods deprecated; still operational temporarily.
+- date: '2026-05-21'
+  breaking: false
+  additions: false
+  highlights:
+  - Migration guide published for moving off the deprecated Listing Management API methods.
+- date: '2026-05-19'
+  breaking: false
+  additions: false
+  highlights:
+  - Semrush MCP setup docs extended with Claude connection guidance.
+- date: '2026-03-20'
+  breaking: false
+  additions: true
+  highlights:
+  - Map Rank Tracker campaign management methods released — CreateCampaign, UpdateCampaign, DeleteCampaign, CollectCampaign, GetUserLimits.
+
+window: 2026-03-20 through 2026-07-15 (the full set of entries published on the release-notes page as of 2026-08-13)
+docs: https://developer.semrush.com/api/v4/introduction/release-notes/
+checked: '2026-08-13'

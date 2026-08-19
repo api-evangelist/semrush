@@ -1,0 +1,50 @@
+overlay: 1.0.0
+info:
+  title: Semrush Partner Service API — API Evangelist enhancements
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Derived from https://developer.semrush.com/api/v4/ and
+  https://github.com/semrush/app-center-openapi. Applies to
+  openapi/semrush-partner-service-api-openapi.yml. The original spec is never mutated.
+extends: ../openapi/semrush-partner-service-api-openapi.yml
+actions:
+- target: $.info
+  description: Attach provenance, contact and terms the upstream spec omits.
+  update:
+    contact:
+      name: Semrush API Support
+      email: mail@semrush.com
+      url: https://developer.semrush.com/api/
+    termsOfService: https://www.semrush.com/company/legal/terms-of-service/
+    x-upstream-source: https://github.com/semrush/app-center-openapi/blob/main/openapi_spec.yaml
+    x-provider: Semrush
+    x-provider-id: semrush
+- target: $
+  description: Add external documentation and the runtime semantics documented only in prose.
+  update:
+    externalDocs:
+      description: Semrush App Center viewer-status documentation
+      url: https://www.semrush.com/apps/docs/server-to-server-api/viewer-status
+    x-rate-limits:
+      requests_per_second: 10
+      concurrent_requests: 10
+      scope: account
+      response_headers: none
+    x-error-envelope:
+      shape: 'meta{success,status_code,request_id} + (data|error)'
+      rfc9457: false
+      artifact: errors/semrush-problem-types.yml
+- target: $.paths['/apis/v4/app-center/v2/partner/viewer-status'].post
+  description: >-
+    Add a stable operationId and record that despite the POST verb this is a read — it
+    retrieves a user's purchase and subscription status and changes no state.
+  update:
+    operationId: getAppCenterViewerStatus
+    x-operation-id-source: api-evangelist-overlay
+    x-consequence: read
+    x-safe-to-retry: true
+    x-verb-note: >-
+      POST is used to carry user_id in a request body rather than to mutate. Agent tooling
+      that infers write intent from the HTTP method will misclassify this operation.

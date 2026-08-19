@@ -1,0 +1,1 @@
+{"resource":"https://mcp.semrush.com/v1/mcp","authorization_servers":["https://oauth.semrush.com"],"bearer_methods_supported":["body"],"scopes_supported":["mcp.access"]}

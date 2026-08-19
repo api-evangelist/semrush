@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Semrush Hermes Partner API JWT Issuer API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "JWT Issuer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Semrush Request API access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.semrush.com/app-center-api/v2/jwt-token/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves JWT for accessing Semrush API.\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

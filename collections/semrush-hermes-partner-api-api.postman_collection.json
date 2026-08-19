@@ -1,0 +1,925 @@
+{
+  "item": [
+    {
+      "id": "4e0f3484-5fc3-4f7d-8f9a-d8d7e1300122",
+      "name": "Hermes Partner API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5fb00a1a-2eec-40bd-93b1-c597e6668cbd",
+          "name": "Semrush Get available subscriptions",
+          "request": {
+            "name": "Semrush Get available subscriptions",
+            "description": {
+              "content": "List all application's registered subscriptions\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#available-subscriptions)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "v4",
+                "hermes",
+                "v0",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5417375a-3527-41fc-891e-54fec8e8d37d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"success\": true,\n    \"status_code\": 200,\n    \"request_id\": \"string\"\n  },\n  \"data\": {\n    \"subscriptions\": [\n      {\n        \"id\": 3526,\n        \"name\": \"string\",\n        \"description\": \"string\"\n      },\n      {\n        \"id\": 6120,\n        \"name\": \"string\",\n        \"description\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52e27068-13be-481c-a848-517df87b769b",
+              "name": "Bad request. Something wrong with the request or JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5343ee80-c11e-44c7-ab3d-02e3e333713d",
+              "name": "Unauthorized. Incorrect JWT fields or signature",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf38ba0a-87f8-43e4-9128-562748a22294",
+          "name": "Semrush Get user's subscription status",
+          "request": {
+            "name": "Semrush Get user's subscription status",
+            "description": {
+              "content": "[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#subscription-status)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "v4",
+                "hermes",
+                "v0",
+                "user",
+                ":user_id",
+                "subscription",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_id",
+                  "description": "(Required) User id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Subscription id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fd882f8e-8bb0-49a7-9c6e-04b0289cf5f1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "user",
+                    ":user_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) User id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"success\": true,\n    \"status_code\": 200,\n    \"request_id\": \"string\"\n  },\n  \"data\": {\n    \"active\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1899dd8-0948-4a90-a294-da46502e57ee",
+              "name": "Bad request. Something wrong with the request or JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "user",
+                    ":user_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) User id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "484fc016-94d1-4c1b-9700-01d4ab63d42c",
+              "name": "Unauthorized. Incorrect JWT fields or signature",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "user",
+                    ":user_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_id",
+                      "description": "(Required) User id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74607969-3bf2-4b6e-8dfd-6f20c79faffd",
+          "name": "Semrush Send notification",
+          "request": {
+            "name": "Semrush Send notification",
+            "description": {
+              "content": "[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#sending-notification)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "v4",
+                "hermes",
+                "v0",
+                "event"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<integer>\",\n  \"data\": \"<byte>\",\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"<string>\",\n      \"content\": \"<byte>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"<string>\",\n      \"content\": \"<byte>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fadfbbbb-d981-4a18-9afc-02119799b412",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<integer>\",\n  \"data\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\",\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"application/pdf\",\n      \"content\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"application/pdf\",\n      \"content\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c40b2ff0-13bc-449d-a1a7-e3db665cc4c8",
+              "name": "Bad request. Something wrong with the request or JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<integer>\",\n  \"data\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\",\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"application/pdf\",\n      \"content\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"application/pdf\",\n      \"content\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e4a6b21-f2fc-491b-a91c-8dfc8d8243df",
+              "name": "Unauthorized. Incorrect JWT fields or signature",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "event"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"user_id\": \"<integer>\",\n  \"data\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\",\n  \"attachments\": [\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"application/pdf\",\n      \"content\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mime\": \"application/pdf\",\n      \"content\": \"eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e2a03d9-115a-412c-b260-dffab4fd741c",
+          "name": "Semrush Get event status",
+          "request": {
+            "name": "Semrush Get event status",
+            "description": {
+              "content": "[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#event-status)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "v4",
+                "hermes",
+                "v0",
+                "event",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Subscription id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1ee297f-f711-4aa5-8a95-d807af85f4d1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "event",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"success\": false,\n    \"status_code\": 200,\n    \"request_id\": \"string\"\n  },\n  \"data\": {\n    \"id\": \"d64f540d-6c24-26cb-4513-79d99c61d8f9\",\n    \"ts\": \"1999-07-19T18:19:29.681Z\",\n    \"state\": 1,\n    \"state_on\": \"2012-09-28T19:03:08.458Z\",\n    \"decision\": \"string\",\n    \"actions\": [\n      {\n        \"id\": \"00fb3e2b-0bea-3d1c-23c6-4acc15970938\",\n        \"ts\": \"1986-08-14T16:47:03.171Z\",\n        \"type\": \"notification\",\n        \"finished\": true,\n        \"notification\": {\n          \"channel\": \"string\",\n          \"subscription_id\": 5485,\n          \"recipient_id\": 8716\n        }\n      },\n      {\n        \"id\": \"28ace9a5-16b2-5b88-f23e-8db3125922b5\",\n        \"ts\": \"2023-01-25T15:05:44.174Z\",\n        \"type\": \"notification\",\n        \"finished\": true,\n        \"notification\": {\n          \"channel\": \"string\",\n          \"subscription_id\": 8456,\n          \"recipient_id\": 3230\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c805ff40-75c0-427a-a0f0-c6be5df91af7",
+              "name": "Bad request. Something wrong with the request or JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "event",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e04912c7-07df-40fd-b3e3-e6b145c959b6",
+              "name": "Unauthorized. Incorrect JWT fields or signature",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "hermes",
+                    "v0",
+                    "event",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Subscription id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.semrush.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4a18e107-c9d1-4013-bf39-f72826b53523",
+    "name": "Semrush Hermes Partner API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.",
+      "type": "text/plain"
+    }
+  }
+}

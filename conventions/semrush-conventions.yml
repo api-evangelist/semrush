@@ -1,0 +1,171 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developer.semrush.com/api/v4/ (get-started, seo/overview, local/overview,
+  introduction/api-versions, introduction/api-usage-restrictions) + openapi/_original/semrush-openapi.yml
+provider: Semrush
+providerId: semrush
+description: >-
+  Cross-cutting runtime semantics for the Semrush API surface: how a caller authenticates,
+  pages, filters, traces, versions, and interprets failure. Read from the provider's own
+  reference. The surface is deliberately simple — query-string dispatch on the v3 Standard
+  API, conventional REST on v4 — and it is missing two things an agent would want:
+  idempotency and any runtime rate-limit signal.
+
+authentication:
+  styles:
+  - name: API key (header) — recommended
+    header: 'Authorization: Apikey <YOUR_API_KEY>'
+    applies_to: v4 APIs (Backlinks, Keywords, Projects, Listing Management)
+  - name: API key (query parameter)
+    parameter: key
+    example: 'https://api.semrush.com/?key=<key>&type=domain_ranks&domain=apple.com&database=us'
+    applies_to: v3 Standard API GET requests
+    note: >-
+      A credential in the URL. It is the documented and only mechanism for the v3 Standard
+      API, so it lands in proxy logs, browser history and referrer headers by design.
+  - name: OAuth 2.0 bearer token
+    header: 'Authorization: Bearer <TOKEN>'
+    applies_to: Map Rank Tracker API, deprecated Projects API (OAuth 2.0), deprecated Listing Management API, MCP
+  key_model:
+    version_scoped: true
+    note: >-
+      Since 2026-07-15 keys are version-specific. One auto-generated v3 key per account that
+      cannot be revoked or deleted; up to 100 v4 keys per account, each with its own
+      permission scope (read-only or read/write) and TTL, and each revocable.
+  detail: authentication/semrush-authentication.yml
+
+pagination:
+  style: limit-offset
+  parameters:
+  - name: limit
+    description: Maximum number of rows to return. Endpoint-specific defaults (12 on backlinks summary).
+  - name: offset
+    description: Number of rows to skip.
+  - name: display_limit
+    description: >-
+      v3 Standard API only. Caps the number of lines returned, and — because Semrush bills per
+      returned line — is the primary cost-control lever, not just a paging control.
+  response_fields: []
+  response_fields_note: >-
+    No next-page token, no total count and no Link header is documented. A caller advances by
+    incrementing offset and stops when a short page comes back.
+  cursor: false
+
+filtering:
+  standard_parameters: true
+  advanced:
+    parameter: filter
+    syntax: 'Field Operator Value'
+    example: '?filter=volume > 500 AND (keyword CONTAINS "best" OR keyword STARTS_WITH "top")'
+    operators:
+      comparison: ['>', '>=', '<', '<=']
+      pattern: [LIKE, CONTAINS, STARTS_WITH, ENDS_WITH, WORD_MATCH]
+      set: [IN, NOT_IN]
+      logical: [AND, OR]
+      array: [HAS, HAS_ANY, HAS_ALL]
+    note: >-
+      A bespoke expression DSL passed as a URL-encoded query parameter. It is not OData, not
+      JSON:API filtering, and not SCIM; an agent has to learn it from prose.
+
+field_selection:
+  supported: true
+  parameters:
+  - name: fields
+    description: >-
+      v4 sparse-fieldset parameter — a comma-separated list of response field names limiting
+      what is returned. Example: fields=score,backlinks_count,domains_count
+  - name: export_columns
+    description: >-
+      v3 equivalent — a comma-separated list of short column codes (Db,Dn,Rk,Or,Ot,...) that
+      selects the columns of the CSV response.
+  expansion: false
+  metadata_field: false
+
+request_tracing:
+  field: meta.request_id
+  header: null
+  note: >-
+    The request identifier is returned in the response body, not in a header. There is no
+    documented client-supplied correlation/request-id header, so a caller cannot propagate
+    its own trace id into Semrush.
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    Semrush documents no idempotency key, no request de-duplication window, and no safe-retry
+    guarantee for any write operation — including Create Location, Create Project, Create
+    Image and CreateCampaign. error.retryable tells a client whether a retry may succeed but
+    says nothing about whether a retry is safe. No Idempotency pointer is emitted for this
+    provider because there is no idempotency support to point at.
+
+versioning:
+  in: url-path-and-credential
+  current: v4
+  note: >-
+    The API version is expressed twice — in the path (/apis/v4/...) and in the key itself, so
+    presenting the wrong key version fails authorization rather than routing. Per-API path
+    versions (v0, v1) sit inside the v4 family. See lifecycle/semrush-lifecycle.yml.
+
+response_formats:
+- application/json
+- text/csv
+csv_note: >-
+  The v3 Standard API returns semicolon-delimited CSV by default; v4 SEO API report endpoints
+  return both CSV and JSON. An agent must set the format explicitly rather than assume JSON.
+
+error_envelope:
+  shape: meta + (data | error)
+  rfc9457: false
+  detail: errors/semrush-problem-types.yml
+
+rate_limit_signaling:
+  response_headers: []
+  note: >-
+    No X-RateLimit-*, no RateLimit-* and no Retry-After header is documented on any Semrush
+    API. The published limits (10 rps, 10 concurrent per account) exist only in prose, so a
+    client discovers exhaustion by receiving a 429 and has no runtime budget signal at all.
+  detail: rate-limits/semrush-rate-limits.yml
+
+metering:
+  model: api-units
+  balance_endpoint:
+    method: GET
+    url: http://www.semrush.com/users/countapiunits.html
+    parameters: [key]
+    cost: 0 API units
+    response: plain CSV integer
+    note: >-
+      Documented over http://, not https://, on the provider's own page. The one place a
+      client can read its remaining budget, and it is a free call.
+  note: >-
+    Cost varies by report type and by whether data is live or historical — one line of the
+    Domain Organic Search Keywords report costs 10 units live and 50 units historical.
+
+special_character_encoding:
+  required: true
+  characters:
+    '#': '%23'
+    '&': '%26'
+    '*': '%2A'
+    '+': '%2B'
+    '-': '%2D'
+    ':': '%3A'
+    '|': '%7C'
+    '%': '%25'
+    '/': '%2F'
+
+caching_restriction:
+  note: >-
+    Semrush's Terms of Service section 3.3 forbids caching API-derived information for more
+    than one month without express written consent. A governance constraint on any agent or
+    warehouse that stores Semrush data.
+
+cross_links:
+  authentication: authentication/semrush-authentication.yml
+  errors: errors/semrush-problem-types.yml
+  lifecycle: lifecycle/semrush-lifecycle.yml
+  rate_limits: rate-limits/semrush-rate-limits.yml
+  scopes: scopes/semrush-scopes.yml
+checked: '2026-08-13'

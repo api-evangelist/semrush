@@ -1,0 +1,53 @@
+overlay: 1.0.0
+info:
+  title: Semrush JWT Issuer API — API Evangelist enhancements
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Derived from https://developer.semrush.com/api/v4/ and
+  https://github.com/semrush/app-center-openapi. Applies to
+  openapi/semrush-jwt-issuer-api-openapi.yml. The original spec is never mutated.
+extends: ../openapi/semrush-jwt-issuer-api-openapi.yml
+actions:
+- target: $.info
+  description: Attach provenance, contact and terms the upstream spec omits.
+  update:
+    contact:
+      name: Semrush API Support
+      email: mail@semrush.com
+      url: https://developer.semrush.com/api/
+    termsOfService: https://www.semrush.com/company/legal/terms-of-service/
+    x-upstream-source: https://github.com/semrush/app-center-openapi/blob/main/openapi_spec.yaml
+    x-provider: Semrush
+    x-provider-id: semrush
+- target: $
+  description: Add external documentation and the runtime semantics documented only in prose.
+  update:
+    externalDocs:
+      description: Semrush App Center server-to-server bearer token documentation
+      url: https://www.semrush.com/apps/docs/server-to-server-api/bearer-token
+    x-rate-limits:
+      requests_per_second: 10
+      concurrent_requests: 10
+      scope: account
+      response_headers: none
+    x-error-envelope:
+      shape: 'meta{success,status_code,request_id} + (data|error)'
+      rfc9457: false
+      artifact: errors/semrush-problem-types.yml
+- target: $.paths['/app-center-api/v2/jwt-token/'].post
+  description: >-
+    Add a stable operationId and record that this operation's 403 response is text/html
+    rather than JSON — the one operation in the spec whose error body cannot be parsed.
+  update:
+    operationId: issueAppCenterJwt
+    x-operation-id-source: api-evangelist-overlay
+    x-consequence: write
+    x-credential-issuing: true
+    x-error-format-exception:
+      status: 403
+      content_type: text/html
+      note: >-
+        Returns an HTML body for Access denied, breaking the meta/error JSON envelope used
+        everywhere else. A client must branch on content-type before parsing.

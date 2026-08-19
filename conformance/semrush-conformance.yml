@@ -1,0 +1,202 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developer.semrush.com/api/v4/ + https://mcp.semrush.com/.well-known/ +
+  https://www.semrush.com/company/security/ + openapi/_original/semrush-openapi.yml
+provider: Semrush
+providerId: semrush
+description: >-
+  Assertions about which industry and cross-cutting standards the Semrush API surface
+  conforms to, each with the evidence it was judged on. Semrush conforms cleanly on the OAuth
+  and MCP discovery family — its authorization server publishes correct RFC 8414 and RFC 9728
+  metadata — and not at all on the HTTP-semantics family: no RFC 9457 problem details, no
+  RFC 8594 deprecation signalling, no RFC 6585/IETF rate-limit headers, no RFC 9116
+  security.txt.
+
+standards:
+- id: openapi
+  name: OpenAPI Specification
+  conforms: partial
+  version: 3.0.3
+  evidence: >-
+    One OpenAPI is published, at github.com/semrush/app-center-openapi, covering the six
+    App Center partner operations. It is not linked from developer.semrush.com and describes
+    none of the marketing data APIs. The Backlinks, Keywords, Projects, Local and Map Rank
+    Tracker APIs — roughly 44 documented endpoints — ship no machine-readable contract.
+  source: https://github.com/semrush/app-center-openapi/blob/main/openapi_spec.yaml
+
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    Authorization code and refresh token grants, a documented device flow, and a live
+    authorization server at oauth.semrush.com with authorization, token, registration and
+    revocation endpoints.
+  source: https://developer.semrush.com/api/v4/get-started/authorization/
+
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: >-
+    https://mcp.semrush.com/.well-known/oauth-authorization-server returns HTTP 200 with a
+    valid metadata document naming issuer, authorization_endpoint, token_endpoint,
+    registration_endpoint, revocation_endpoint, grant types, scopes and PKCE methods.
+  source: https://mcp.semrush.com/.well-known/oauth-authorization-server
+
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: >-
+    POST to the MCP endpoint returns 401 with a WWW-Authenticate Bearer challenge carrying
+    resource_metadata, and that document resolves to a valid protected-resource record naming
+    the authorization server and scopes_supported [mcp.access].
+  source: https://mcp.semrush.com/.well-known/oauth-protected-resource/v2/mcp
+
+- id: rfc7636
+  name: PKCE
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["plain","S256"] in the authorization server metadata.'
+  note: >-
+    Advertising "plain" alongside S256 is a downgrade risk — a client is permitted to use the
+    weaker method.
+
+- id: rfc8628
+  name: OAuth 2.0 Device Authorization Grant
+  conforms: partial
+  evidence: >-
+    Documented and recommended by Semrush, with a device endpoint at
+    https://oauth.semrush.com/dag/device/code returning device_code, user_code,
+    verification_uri, expires_in and interval. But the grant is NOT listed in
+    grant_types_supported in the RFC 8414 metadata, so a metadata-driven client will not
+    discover it.
+  source: https://developer.semrush.com/api/v4/get-started/authorization/
+
+- id: rfc7591
+  name: OAuth 2.0 Dynamic Client Registration
+  conforms: true
+  evidence: 'registration_endpoint published in the authorization server metadata; MCP clients register automatically.'
+
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  version: streamable-http
+  evidence: >-
+    A first-party hosted server at https://mcp.semrush.com/v2/mcp, streamable HTTP transport
+    only, OAuth-gated, documented for nine named AI clients. Tool schemas are behind auth.
+  source: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
+
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Semrush uses a proprietary meta/error envelope with application/json. No
+    application/problem+json media type, no type URI, no title/detail/instance members.
+  source: https://developer.semrush.com/api/v4/seo/overview/
+
+- id: rfc8594
+  name: Sunset HTTP Header
+  conforms: false
+  evidence: >-
+    Four APIs were deprecated between 2026-05-29 and 2026-07-02 and every one is announced
+    only in release-notes prose. No Sunset header, no Deprecation header, no deprecation Link
+    relation, and no published removal date.
+  source: https://developer.semrush.com/api/v4/introduction/release-notes/
+
+- id: ratelimit-headers
+  name: RateLimit header fields for HTTP (IETF draft) / Retry-After
+  conforms: false
+  evidence: >-
+    Limits of 10 rps and 10 concurrent per account are published in prose only. No
+    X-RateLimit-*, no RateLimit-*, no Retry-After documented on any endpoint.
+  source: https://developer.semrush.com/api/v4/introduction/api-usage-restrictions/
+
+- id: idempotency
+  name: Idempotency keys (IETF draft-ietf-httpapi-idempotency-key-header)
+  conforms: false
+  evidence: >-
+    No idempotency key, de-duplication window or safe-retry guarantee is documented for any
+    write operation, including Create Location, Create Project, Create Image and CreateCampaign.
+
+- id: pagination
+  name: Pagination
+  conforms: true
+  style: limit-offset
+  evidence: >-
+    limit and offset query parameters on v4 collection endpoints; display_limit on the v3
+    Standard API. No cursor, no next-page token, no total count, no Link header.
+  source: https://developer.semrush.com/api/v4/seo/backlinks/
+
+- id: rfc9116
+  name: security.txt
+  conforms: false
+  evidence: >-
+    Probed on www.semrush.com (404), api.semrush.com (400), developer.semrush.com (404) and
+    mcp.semrush.com (401). Semrush has a real HackerOne program and a security@semrush.com
+    contact but publishes neither at the well-known location.
+
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: >-
+    No /.well-known/openid-configuration is served on any host. Semrush is an OAuth
+    authorization server for its own API, not an identity provider.
+
+- id: json-api
+  name: JSON:API
+  conforms: false
+  evidence: Custom meta/data/error envelope; no JSON:API media type, resource objects or links members.
+
+- id: odata
+  name: OData
+  conforms: false
+  evidence: >-
+    Filtering uses a bespoke expression DSL (Field Operator Value with LIKE, CONTAINS,
+    WORD_MATCH, HAS_ANY) passed in a `filter` query parameter. Not $filter, not OData syntax.
+
+- id: asyncapi
+  name: AsyncAPI
+  conforms: false
+  evidence: >-
+    No event, streaming or webhook surface is documented anywhere in the developer portal.
+    The Hermes partner API carries an /event resource but it is a synchronous partner
+    notification POST, not a subscribable event stream. N/A rather than a failure.
+
+- id: pci-dss
+  name: PCI DSS
+  conforms: true
+  evidence: >-
+    "We have fully implemented and support all processes related to PCI DSS compliance. Once
+    a year, we confirm our compliance by passing an independent QSA audit."
+  source: https://www.semrush.com/company/security/
+
+- id: gdpr
+  name: GDPR
+  conforms: true
+  evidence: Semrush states its products adhere to GDPR requirements effective 2018-05-25.
+  source: https://www.semrush.com/company/security/
+
+- id: ccpa
+  name: CCPA / LGPD
+  conforms: partial
+  evidence: >-
+    Semrush states it monitors and complies with CCPA, LGPD and other national privacy
+    legislation. No certification or attestation is published.
+  source: https://www.semrush.com/company/security/
+
+- id: soc2
+  name: SOC 2
+  conforms: false
+  evidence: No SOC 2 claim appears on the Semrush security page or anywhere in its public documentation.
+
+- id: iso27001
+  name: ISO/IEC 27001
+  conforms: false
+  evidence: No ISO 27001 certification is claimed. Semrush points at its data-center providers' certificates instead.
+
+summary:
+  conforms: 10
+  partial: 4
+  does_not_conform: 9
+  strongest_family: OAuth 2.0 / MCP discovery
+  weakest_family: HTTP runtime semantics (problem details, deprecation, rate-limit signalling)
+checked: '2026-08-13'

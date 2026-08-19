@@ -1,0 +1,135 @@
+generated: '2026-08-13'
+method: probed
+source: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
+name: Semrush MCP
+provider: Semrush
+providerId: semrush
+status: published
+description: >-
+  Semrush ships a first-party, hosted MCP server that exposes its public API data to AI
+  agents over streamable HTTP. Per the provider's own documentation the server fronts the
+  Trends API (subject to the caller's Trends subscription level), the whole SEO API, and
+  the read-only methods of the Projects API v3. It is metered against the same API unit
+  balance as the REST APIs.
+
+deployment:
+  mode: remote
+  endpoint: https://mcp.semrush.com/v2/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    POST https://mcp.semrush.com/v2/mcp returns HTTP 401 with
+    WWW-Authenticate: Bearer resource_metadata="https://mcp.semrush.com/.well-known/oauth-protected-resource/v2/mcp".
+    A live, reachable, auth-gated MCP endpoint. Semrush publishes no npx/stdio package;
+    the only distribution is this hosted URL, so mode is remote, not both.
+
+transport:
+  type: streamable-http
+  note: >-
+    "This server uses streamable HTTP transport only." — developer.semrush.com. A legacy
+    /v1/mcp path is still live (also 401) and its protected-resource document is still served.
+
+authentication:
+  default: oauth2
+  oauth:
+    authorization_server: https://oauth.semrush.com
+    metadata: https://mcp.semrush.com/.well-known/oauth-authorization-server
+    protected_resource_metadata: https://mcp.semrush.com/.well-known/oauth-protected-resource/v2/mcp
+    grant_types:
+    - authorization_code
+    - refresh_token
+    pkce:
+    - S256
+    - plain
+    dynamic_client_registration: true
+    scopes:
+    - mcp.access
+    note: >-
+      OAuth is the default. The agent registers dynamically and the user is redirected to
+      the Semrush login page; no headers are configured by hand.
+  alternative:
+    type: api-key
+    note: >-
+      Semrush documents an API key fallback for agents that do not support OAuth. Keys are
+      version-specific (v3 / v4) and are issued from the API Keys section of a Semrush profile.
+
+backing_apis:
+- name: Trends API
+  version: v3
+  note: All Trends API data, gated by the caller's Trends API subscription level (Basic or Premium).
+- name: SEO API
+  version: v3/v4
+  note: All SEO API reports.
+- name: Projects API
+  version: v3
+  note: Read-only methods only — an agent can read projects but cannot create or modify them.
+
+tools:
+  status: gated
+  count: null
+  note: >-
+    tools/list could not be enumerated. POST https://mcp.semrush.com/v2/mcp with a
+    tools/list JSON-RPC body returns 401 before any handshake, so the live inputSchemas
+    require an authenticated OAuth introspection. Semrush publishes no tool catalogue in
+    its documentation and its llms.txt lists only the MCP landing page, so no tool names
+    are recorded here rather than guessed. See mcp/semrush-tool-crosswalk.yml.
+
+metering:
+  model: api-units
+  note: >-
+    "The Semrush MCP server uses the same unit-based system as the Semrush API to manage
+    and limit API usage." Each MCP call consumes API units by report type and volume.
+
+entitlement:
+  seo_data:
+    plans:
+    - Semrush One Starter
+    - Semrush One Pro+
+    - SEO Classic Pro
+    - SEO Classic Guru
+    included_units: 50000
+    units_reset: on subscription renewal date
+    also_available_with:
+    - SEO Classic Business + an API units package
+    - Semrush One Advanced + an API units package
+    unit_packages:
+    - 2000000
+    - 5000000
+    - 10000000
+    - 20000000
+  traffic_and_market_data:
+    plans:
+    - Trends API Basic
+    - Trends API Premium
+    note: MCP access is included with any Trends API plan.
+
+clients_documented:
+- Claude
+- Claude Code
+- ChatGPT
+- Cursor
+- VS Code
+- Antigravity 2.0
+- Antigravity CLI
+- Perplexity
+- Lovable
+
+x-evidence:
+- url: https://mcp.semrush.com/v2/mcp
+  method: POST
+  http_status: 401
+  note: WWW-Authenticate Bearer challenge naming the v2 protected-resource document.
+- url: https://mcp.semrush.com/v1/mcp
+  method: POST
+  http_status: 401
+  note: Legacy endpoint, still live and still challenging.
+- url: https://mcp.semrush.com/.well-known/oauth-authorization-server
+  method: GET
+  http_status: 200
+- url: https://mcp.semrush.com/.well-known/oauth-protected-resource/v2/mcp
+  method: GET
+  http_status: 200
+- url: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
+  method: GET
+  http_status: 200
+fetched: '2026-08-13'

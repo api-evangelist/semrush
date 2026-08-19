@@ -1,0 +1,99 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.semrush.com/company/security/
+provider: Semrush
+providerId: semrush
+description: >-
+  Semrush publishes a public security page in place of a trust center. It is prose rather
+  than a portal — there is no document request flow, no downloadable audit report, and no
+  subprocessor list linked from it — but it names concrete compliance programs and describes
+  the controls behind them. It is localized into fourteen languages, which is unusual and
+  suggests it is treated as a sales artifact.
+
+trust_center:
+  exists: true
+  type: security-page
+  url: https://www.semrush.com/company/security/
+  portal: false
+  document_request_flow: false
+  subprocessor_list_linked: false
+  localized:
+  - de
+  - es
+  - fr
+  - it
+  - ja
+  - ko
+  - nl
+  - pl
+  - pt
+  - sv
+  - tr
+  - vi
+  - zh
+
+certifications:
+- name: PCI DSS
+  status: compliant
+  attestation: >-
+    "We have fully implemented and support all processes related to PCI DSS compliance. Once
+    a year, we confirm our compliance by passing an independent QSA audit."
+  audit_cadence: annual
+  auditor_type: independent QSA
+  report_available: false
+- name: GDPR
+  status: compliant
+  effective: '2018-05-25'
+  attestation: >-
+    Semrush states its products adhere to GDPR requirements, with data-minimization measures
+    described on the page.
+- name: CCPA
+  status: monitored
+  attestation: >-
+    Semrush states it monitors and complies with CCPA, LGPD and other national privacy
+    legislation.
+- name: LGPD
+  status: monitored
+
+not_claimed:
+- name: SOC 2
+  note: >-
+    No SOC 2 Type I or Type II claim appears anywhere on the security page. Notable for a
+    data platform of this size selling to enterprise.
+- name: ISO/IEC 27001
+  note: No ISO 27001 certification is claimed.
+- name: HIPAA
+- name: FedRAMP
+
+control_domains_described:
+- Information security policies, reviewed and communicated to affected personnel
+- HR security — NDAs for employees and contractors, annual security awareness training
+- Application security — separate staging, testing and development environments
+- Weekly penetration testing of new features
+- Patch management across company infrastructure
+- Physical security and compliance of data centers
+
+infrastructure:
+  providers:
+  - name: AWS
+    compliance_reference: https://aws.amazon.com/compliance/
+  - name: Google Cloud
+    compliance_reference: https://cloud.google.com/security/compliance
+  - name: Digital Realty
+    compliance_reference: https://www.digitalrealty.com/data-center-solutions/security-compliance/compliance
+  note: >-
+    Semrush points at its data-center providers' compliance certificates rather than holding
+    an equivalent certification of its own at the application layer.
+
+contact: security@semrush.com
+legal:
+  privacy_policy: https://www.semrush.com/company/legal/privacy-policy/
+  terms_of_service: https://www.semrush.com/company/legal/terms-of-service/
+
+x-evidence:
+- url: https://www.semrush.com/company/security/
+  http_status: 200
+- url: https://trust.semrush.com/
+  http_status: null
+  note: DNS does not resolve — no dedicated trust-center subdomain exists.
+checked: '2026-08-13'

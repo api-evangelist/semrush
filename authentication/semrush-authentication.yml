@@ -1,16 +1,145 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/semrush-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developer.semrush.com/api/v4/get-started/authorization/
+docs: https://developer.semrush.com/api/v4/get-started/authorization/
+provider: Semrush
+providerId: semrush
+description: >-
+  Authentication profile for the Semrush API surface. Upgrades the previous derived profile
+  (which saw only the single bearer scheme in the App Center OpenAPI) with the three
+  mechanisms Semrush actually documents: version-scoped API keys passed as a header or a
+  query parameter, OAuth 2.0 with a device-authorization flow, and OAuth for the MCP server.
+
 summary:
   types:
+  - apiKey
   - http
+  - oauth2
+  primary: apiKey
+  mfa_on_api: false
+
 schemes:
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: Authorization
+  value_format: 'Apikey <YOUR_API_KEY>'
+  recommended: true
+  applies_to:
+  - Backlinks API v4
+  - Keywords API v4
+  - Projects API v4
+  - Listing Management API v4
+  description: >-
+    The recommended way to authorize a Version 4 request. Note the non-standard scheme token
+    "Apikey" in the Authorization header — it is neither Bearer nor Basic, so generic HTTP
+    clients and OpenAPI generators need it configured explicitly.
+  source: https://developer.semrush.com/api/v4/get-started/authorization/
+
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: key
+  applies_to:
+  - Standard API v3 (Domain, Keyword, Overview, Subdomain, Subfolder, URL and Backlinks reports)
+  - Trends API v3
+  - API unit balance endpoint
+  example: 'https://api.semrush.com/?key=<key>&type=domain_ranks&domain=apple.com&database=us'
+  description: >-
+    The v3 Standard API is a single query-string dispatcher; the credential travels in the
+    URL. Semrush's own docs warn that the key also grants access to the account's API unit
+    balance, so exposure carries a direct billing consequence.
+  risk: credential-in-url
+  source: https://developer.semrush.com/api/v4/get-started/authorization/
+
+- name: oauth2Bearer
+  type: http
+  scheme: bearer
+  parameter: Authorization
+  value_format: 'Bearer <TOKEN>'
+  applies_to:
+  - Map Rank Tracker API
+  - Projects API (OAuth 2.0) — deprecated
+  - Listing Management API (OAuth 2.0) — deprecated
+  - Semrush MCP server
+  flows:
+  - name: Device Authorization Grant
+    rfc: RFC 8628
+    recommended: true
+    device_endpoint: https://oauth.semrush.com/dag/device/code
+    returns: [device_code, user_code, verification_uri, expires_in, interval]
+    description: >-
+      The self-serve path — a developer signs in with their own Semrush account and stores
+      the resulting tokens; no application to Semrush Support is needed. For multi-tenant
+      apps the flow is repeated per tenant at setup.
+  - name: Semrush Auth flow
+    recommended: false
+    description: >-
+      The legacy path. Requires contacting Semrush Customer Support and waiting for issued
+      credentials.
+  - name: Authorization Code with PKCE
+    rfc: RFC 7636
+    applies_to: [Semrush MCP]
+    description: >-
+      Advertised in the RFC 8414 metadata at mcp.semrush.com — authorization_code and
+      refresh_token grants, S256 and plain challenge methods, dynamic client registration,
+      token_endpoint_auth_methods "none" (public clients).
+  source: https://developer.semrush.com/api/v4/get-started/authorization/
+
 - name: jwtIssuerToken
   type: http
   scheme: bearer
   bearerFormat: JWT
-  description: |-
-    Use token retrieved from Jwt Issuer
-    [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
+  applies_to:
+  - App Center Partner Service API
+  - Hermes Partner API
+  description: >-
+    App Center server-to-server surface. A partner exchanges its credentials at
+    POST /app-center-api/v2/jwt-token/ for a JWT, then presents it as a bearer token.
   sources:
-  - openapi/semrush-openapi.yml
+  - openapi/_original/semrush-openapi.yml
+  - https://www.semrush.com/apps/docs/server-to-server-api/bearer-token
+
+key_management:
+  version_scoped: true
+  since: '2026-07-15'
+  v3:
+    count_per_account: 1
+    auto_generated: true
+    revocable: false
+    deletable: false
+    ttl: none
+    note: >-
+      A permanent, non-revocable credential. If a v3 key leaks there is no documented way to
+      rotate it — the account's only remedy is to contact Semrush.
+  v4:
+    max_per_account: 100
+    auto_generated_default: 1
+    revocable: true
+    deletable: true
+    renamable: true
+    ttl_configurable: true
+    permissions:
+    - Read-only (GET)
+    - Read and write (GET, POST, PUT, PATCH, DELETE)
+  visibility: >-
+    The full key value is displayed only once, at creation. Keys are managed in the API Keys
+    section of the Semrush user profile.
+
+well_known:
+  oauth_authorization_server: https://mcp.semrush.com/.well-known/oauth-authorization-server
+  oauth_protected_resource: https://mcp.semrush.com/.well-known/oauth-protected-resource
+  openid_configuration: null
+  openid_connect: false
+
+gaps:
+- No mutual TLS, no signed requests, and no IP allow-listing documented.
+- No OpenID Connect — Semrush is not an identity provider for third-party apps.
+- >-
+  The v3 credential cannot be rotated by the customer, while carrying direct spend authority
+  over the account's API unit balance.
+
+cross_links:
+  scopes: scopes/semrush-scopes.yml
+  conventions: conventions/semrush-conventions.yml
+checked: '2026-08-13'

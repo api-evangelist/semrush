@@ -1,0 +1,137 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, api.github.com/orgs/semrush/repos, and
+  https://developer.semrush.com/api/v4/
+provider: Semrush
+providerId: semrush
+description: >-
+  Published package inventory for Semrush. The headline finding is a gap: Semrush ships no
+  first-party API client library in any registry. Its developer documentation teaches raw
+  HTTP with curl and offers no SDK download, and the only first-party npm presence is the
+  Intergalactic design system, which is UI components rather than an API client. Every
+  Semrush API wrapper on npm and PyPI is third-party and years stale.
+
+official_api_sdk: false
+official_api_sdk_note: >-
+  Checked npm (registry search for "semrush", plus @semrush/* scope), PyPI, and the
+  github.com/semrush organization on 2026-08-13. No first-party client for the Standard,
+  SEO, Trends, Projects, Local or Map Rank Tracker APIs exists. The @semrush npm scope is
+  unclaimed — @semrush/mcp returns 404.
+
+packages:
+- name: '@semcore/ui'
+  registry: npm
+  url: https://www.npmjs.com/package/@semcore/ui
+  official: true
+  kind: ui-components
+  language: TypeScript
+  version: 17.5.0
+  published: '2026-07-30'
+  repository: https://github.com/semrush/intergalactic
+  note: >-
+    Intergalactic, the Semrush design system. Actively maintained and first-party, but it is
+    a React component library for building Semrush-styled interfaces, not a client for any
+    Semrush API. Recorded here for currency evidence; see components/semrush-components.yml.
+- name: '@semcore/core'
+  registry: npm
+  url: https://www.npmjs.com/package/@semcore/core
+  official: true
+  kind: ui-components
+  language: TypeScript
+  version: 17.3.0
+  published: '2026-07-30'
+  repository: https://github.com/semrush/intergalactic
+- name: '@semcore/icon'
+  registry: npm
+  url: https://www.npmjs.com/package/@semcore/icon
+  official: true
+  kind: ui-components
+  language: TypeScript
+  version: 17.2.0
+  published: '2026-06-05'
+  repository: https://github.com/semrush/intergalactic
+- name: '@semcore/data-table'
+  registry: npm
+  url: https://www.npmjs.com/package/@semcore/data-table
+  official: true
+  kind: ui-components
+  language: TypeScript
+  version: 17.2.1
+  published: '2026-06-26'
+  repository: https://github.com/semrush/intergalactic
+- name: '@semcore/d3-chart'
+  registry: npm
+  url: https://www.npmjs.com/package/@semcore/d3-chart
+  official: true
+  kind: ui-components
+  language: TypeScript
+  version: 17.3.0
+  published: '2026-06-26'
+  repository: https://github.com/semrush/intergalactic
+- name: zenrpc
+  registry: pkg.go.dev
+  url: https://github.com/semrush/zenrpc
+  official: true
+  kind: server-library
+  language: Go
+  version: null
+  published: null
+  repository: https://github.com/semrush/zenrpc
+  note: >-
+    First-party open-source JSON-RPC 2.0 server generator with SMD support. Infrastructure
+    Semrush publishes, not a client for the Semrush API. No registry version recorded — Go
+    modules are resolved from the repository tag; last pushed 2024-06-15.
+- name: semrush-api
+  registry: npm
+  url: https://www.npmjs.com/package/semrush-api
+  official: false
+  kind: api-client
+  language: JavaScript
+  version: 0.1.8
+  published: '2016-11-17'
+  repository: https://github.com/DigitalRockers/semrush
+  note: >-
+    Third-party. Last published 2016 — nearly ten years before the v4 API surface it would
+    need to cover. Abandoned.
+- name: semrush
+  registry: npm
+  url: https://www.npmjs.com/package/semrush
+  official: false
+  kind: api-client
+  language: JavaScript
+  version: 0.0.1
+  published: '2015-08-03'
+  repository: https://github.com/edravis/semrush
+  note: Third-party, single 2015 release. Abandoned.
+- name: python-semrush
+  registry: pypi
+  url: https://pypi.org/project/python-semrush/
+  official: false
+  kind: api-client
+  language: Python
+  version: 0.1.5
+  published: '2020-07-08'
+  repository: null
+  note: >-
+    Third-party wrapper around "the SEMrush API version 3". Last released 2020; predates the
+    entire v4 surface and the version-specific v3/v4 API keys introduced 2026-07-15.
+
+registries_checked:
+- registry: npm
+  found: 5 first-party UI packages, 0 first-party API clients
+- registry: pypi
+  found: 0 first-party packages
+- registry: pkg.go.dev
+  found: first-party infrastructure only (zenrpc, mercure fork)
+- registry: rubygems
+  found: none
+- registry: packagist
+  found: none
+- registry: crates.io
+  found: none
+- registry: nuget
+  found: none
+- registry: maven-central
+  found: none
+checked: '2026-08-13'

@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Semrush Hermes Partner API Partner Service API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Partner Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Semrush User status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.semrush.com/apis/v4/app-center/v2/partner/viewer-status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves user status, related to the app (purchases, subscriptions)\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/viewer-status)\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

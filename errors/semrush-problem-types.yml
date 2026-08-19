@@ -1,0 +1,198 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developer.semrush.com/api/v4/seo/overview/ +
+  https://developer.semrush.com/api/v4/local/overview/ +
+  openapi/_original/semrush-openapi.yml
+provider: Semrush
+providerId: semrush
+format: custom
+format_note: >-
+  Not RFC 9457. Semrush returns application/json with a proprietary envelope — a meta object
+  carrying success/status_code/request_id, and then either data or error but never both.
+  No application/problem+json media type and no type URI is used anywhere in the surface.
+
+envelope:
+  media_type: application/json
+  shape: |
+    {
+      "meta":  { "success": bool, "status_code": int, "request_id": string },
+      "error": { "code": int, "message": string, "retryable": bool, "details": object|array }
+    }
+  fields:
+  - name: meta.success
+    type: boolean
+    required: true
+    description: Whether the request succeeded.
+  - name: meta.status_code
+    type: integer
+    required: true
+    description: HTTP status code returned by the API, mirrored into the body.
+  - name: meta.request_id
+    type: string
+    required: false
+    description: Unique request identifier to quote when contacting support.
+  - name: error.code
+    type: integer
+    required: true
+    description: Error code. Usually matches the HTTP status code.
+  - name: error.message
+    type: string
+    required: true
+    description: Human-readable error description.
+  - name: error.retryable
+    type: boolean
+    required: false
+    description: >-
+      Whether retrying the request may succeed. Documented on the SEO API; the single most
+      useful field in the envelope for an agent, because it removes the guesswork from retry.
+  - name: error.details
+    type: object or array
+    required: false
+    description: >-
+      Additional error information; structure depends on the endpoint. On the Local API this
+      is an array of objects each carrying message and error_status, where error_status is a
+      machine-readable string such as "INVALID_ZIP_CODE".
+  example_error: |
+    {
+      "meta": { "success": false, "status_code": 403, "request_id": "a29952029c10a47e5876d86256e59455" },
+      "error": { "code": 403, "message": "Forbidden", "retryable": false, "details": {} }
+    }
+
+machine_readable_codes:
+  present: partial
+  field: error.details[].error_status
+  note: >-
+    Only the Local API documents a machine-readable error_status string, and it publishes one
+    example value (INVALID_ZIP_CODE) rather than an enumerated catalogue. There is no
+    provider-published list of error_status values to bind an agent to.
+
+problem_types:
+- status: 400
+  title: Bad Request
+  apis: [SEO API, Local API, App Center API]
+  detail: The request contains invalid parameters, or is incorrect or incomplete.
+  remediation: >-
+    Check the request body and query string for typos and missing parameters. When present,
+    read error.details for the specific field.
+  retryable: false
+- status: 401
+  title: Unauthorized
+  apis: [SEO API, Local API, App Center API]
+  detail: Authentication failed or credentials are missing or incorrect.
+  remediation: >-
+    Confirm the API key matches the API version being called (a v3 key cannot call v4), or
+    that the OAuth access token is still valid. For MCP, re-run the OAuth flow.
+  retryable: false
+- status: 403
+  title: Forbidden
+  apis: [SEO API, Local API, App Center API]
+  detail: The authenticated user lacks permission for the operation, or a restriction applies.
+  remediation: >-
+    Check the API key's permission setting (read-only keys reject POST/PUT/PATCH/DELETE) and
+    the subscription entitlement for the API being called. Otherwise contact Semrush Support.
+  retryable: false
+- status: 404
+  title: Not Found
+  apis: [SEO API, Local API]
+  detail: >-
+    The target resource is incorrect or has moved. On the SEO API this also surfaces when
+    user information is not found in the Semrush database.
+  remediation: Verify the resource identifier and that the resource exists.
+  retryable: false
+- status: 409
+  title: Conflict
+  apis: [SEO API, Local API]
+  detail: The request conflicts with the current state of the resource.
+  remediation: >-
+    Retry later or check resource state — for example, when creating a project, confirm it
+    does not already exist.
+  retryable: true
+- status: 429
+  title: Too Many Requests
+  apis: [SEO API, Local API]
+  detail: >-
+    The request rate is too high, or too many requests were made from the same access token.
+    Semrush caps every API at 10 requests per second and 10 concurrent requests per account.
+  remediation: Back off and retry later. See rate-limits/semrush-rate-limits.yml.
+  retryable: true
+- status: 499
+  title: Client Closed Request
+  apis: [SEO API, Local API]
+  detail: The client disconnected before the response was delivered.
+  remediation: Check the network connection and retry.
+  retryable: true
+- status: 500
+  title: Internal Server Error
+  apis: [SEO API]
+  detail: An unexpected server error occurred.
+  remediation: Retry later.
+  retryable: true
+- status: 501
+  title: Not Implemented
+  apis: [SEO API]
+  detail: The requested operation is not implemented.
+  remediation: Check the API reference for the available methods.
+  retryable: false
+- status: 503
+  title: Service Unavailable
+  apis: [SEO API]
+  detail: The service is temporarily unavailable.
+  remediation: Retry later.
+  retryable: true
+- status: 504
+  title: Gateway Timeout
+  apis: [SEO API]
+  detail: The request timed out while waiting for a backend service.
+  remediation: Retry later.
+  retryable: true
+- status: 550
+  title: Internal Server Error (Local API)
+  apis: [Local API]
+  detail: >-
+    Server-side error. Note the non-standard code — the Local API remaps 5xx into the 55x
+    range, so a client that switches on the standard 500/501/503/504 will miss these entirely.
+  remediation: Retry later.
+  retryable: true
+- status: 551
+  title: Not Implemented (Local API)
+  apis: [Local API]
+  detail: The specified request method is not supported. Non-standard code.
+  remediation: Check the API reference for available methods.
+  retryable: false
+- status: 553
+  title: Service Unavailable (Local API)
+  apis: [Local API]
+  detail: Server maintenance or overload. Non-standard code.
+  remediation: Retry later.
+  retryable: true
+- status: 554
+  title: Gateway Timeout (Local API)
+  apis: [Local API]
+  detail: Timeout at the acting gateway or proxy. Non-standard code.
+  remediation: Retry later.
+  retryable: true
+
+derived_from_openapi:
+  file: openapi/_original/semrush-openapi.yml
+  responses:
+  - status: 400
+    schema: errorMessage
+  - status: 401
+    schema: errorMessage
+  - status: 403
+    note: >-
+      The App Center JWT issuer returns 403 as text/html, not JSON — the one operation in the
+      catalog's Semrush OpenAPI that does not return a parseable error body.
+
+inconsistency_note: >-
+  Semrush runs two incompatible error vocabularies at once. The SEO API returns standard
+  5xx codes; the Local API returns 550/551/553/554 for the same conditions. Both share the
+  meta/error envelope, so a client must branch on which API it is calling to interpret a
+  server-side failure.
+
+docs:
+- https://developer.semrush.com/api/v4/seo/overview/
+- https://developer.semrush.com/api/v4/local/overview/
+- https://developer.semrush.com/api/v4/get-started/troubleshooting/
+checked: '2026-08-13'

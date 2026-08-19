@@ -1,0 +1,111 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://developer.semrush.com/api/v4/introduction/api-versions/ +
+  https://developer.semrush.com/api/v4/introduction/release-notes/ +
+  https://developer.semrush.com/api/v4/local/overview/
+provider: Semrush
+providerId: semrush
+description: >-
+  Versioning, deprecation and support posture for the Semrush API surface, read from the
+  provider's own documentation. Semrush is mid-migration from v3 to v4 across every API and
+  documents each deprecation in prose, but publishes no removal dates, no RFC 8594 Sunset or
+  Deprecation response headers, and no public status page.
+
+versioning:
+  scheme: major API version families (v3, v4) selected by URL path and by API key
+  policy_url: https://developer.semrush.com/api/v4/introduction/api-versions/
+  documented: true
+  details:
+  - Each version has its own API reference, authorization methods and supported functionality.
+  - Not every API is available in every version.
+  - API keys are version-specific — a v3 key cannot call a v4 API and vice versa.
+  - A version selector in the documentation portal switches the whole reference between v3 and v4.
+  - Within v4, each API additionally carries a path version (/apis/v4/backlinks/v1/, /apis/v4/map-rank-tracker/v0/).
+
+deprecation:
+  policy_url: https://developer.semrush.com/api/v4/introduction/release-notes/
+  documented: true
+  mechanism: dated release-notes entries plus "Deprecated" sections in the API reference navigation
+  headers:
+    sunset: false
+    deprecation: false
+    link: false
+    note: >-
+      No RFC 8594 Sunset header, no Deprecation header and no deprecation Link relation is
+      documented anywhere in the Semrush developer portal. A client cannot detect deprecation
+      at runtime; it has to read the release notes.
+  removal_dates_published: false
+  removal_language: >-
+    "deprecated but remain operational temporarily" and "is deprecated and will be removed
+    soon" — no date is attached to either phrase.
+  migration_guides:
+  - name: Migrate from deprecated Listing Management API
+    url: https://developer.semrush.com/api/v4/local/tutorials/listing-management-api/
+  deprecated:
+  - api: Listing Management API (OAuth 2.0)
+    operations:
+    - GetLocation
+    - GetLocations
+    - UpdateLocation
+    - UpdateLocations
+    deprecated_on: '2026-05-29'
+    replacement: Listing Management API v4 (/apis/v4/local/v1/)
+    removal_date: null
+  - api: Projects API v3 and Projects API v4 (OAuth 2.0)
+    operations:
+    - ProjectsList
+    - GetProject
+    - CreateProject
+    - UpdateProject
+    - RemoveProject
+    deprecated_on: '2026-07-02'
+    replacement: Projects API v4 with API key authorization (/apis/v4/projects/v1/)
+    removal_date: null
+  - api: Backlinks API (previous methods)
+    deprecated_on: '2026-06-11'
+    replacement: Backlinks API v4 (/apis/v4/backlinks/v1/)
+    removal_date: null
+  - api: Keyword Reports API (previous methods)
+    deprecated_on: '2026-06-09'
+    replacement: Keyword API v4 (/apis/v4/keywords/v1/)
+    removal_date: null
+  derived_from_openapi: []
+  derived_from_openapi_note: >-
+    No operation in openapi/ carries deprecated: true. The App Center spec predates the
+    v3-to-v4 migration entirely.
+
+status_page:
+  published: false
+  probed:
+  - url: https://status.semrush.com/
+    result: DNS does not resolve
+  - url: https://semrush.statuspage.io/
+    status: 200
+    result: >-
+      Soft 200. The host answers with the Semrush marketing site (Magnolia CMS shell), not a
+      Statuspage. https://semrush.statuspage.io/api/v2/status.json returns the same HTML with
+      content-type text/html, so there is no Statuspage API behind it. Treated as absent.
+  note: Semrush publishes no public API status or uptime page.
+
+sla:
+  published: false
+  note: >-
+    An "Enterprise SLA & 24/7 support" line appears on the pricing page as an Enterprise plan
+    feature, but no SLA document, uptime target or credit schedule is published. Nothing is
+    committed for self-serve API tiers.
+
+support:
+  channels:
+  - type: email
+    value: mail@semrush.com
+  - type: telephone
+    value: +1 (800) 815-9959 (US, 12:00-17:00 ET, Mon-Fri)
+  - type: docs
+    url: https://developer.semrush.com/api/v4/get-started/troubleshooting/
+  - type: knowledge-base
+    url: https://www.semrush.com/kb/
+  - type: sales
+    value: sales@semrush.com
+
+checked: '2026-08-13'

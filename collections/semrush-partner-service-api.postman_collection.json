@@ -1,0 +1,261 @@
+{
+  "item": [
+    {
+      "id": "343bcc0f-66d9-4361-b3e5-d550f29b693b",
+      "name": "Partner Service",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ceed29b8-3eeb-4be1-ac27-6ff187fa04e3",
+          "name": "Semrush User status",
+          "request": {
+            "name": "Semrush User status",
+            "description": {
+              "content": "Retrieves user status, related to the app (purchases, subscriptions)\n[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/viewer-status)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "apis",
+                "v4",
+                "app-center",
+                "v2",
+                "partner",
+                "viewer-status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c90bebb-5393-4c5a-8e84-475404f9c11c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "app-center",
+                    "v2",
+                    "partner",
+                    "viewer-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"success\": false,\n    \"status_code\": 200,\n    \"request_id\": \"string\"\n  },\n  \"data\": {\n    \"is_main_product_active\": false,\n    \"is_app_taken_for_free\": false,\n    \"is_main_product_trial_available\": true,\n    \"product_trials_available\": [\n      \"dcdb9168-0b8a-b77f-88b1-573f1658a458\",\n      \"f7ba6879-d2c6-924b-b3b8-26a10fe80529\"\n    ],\n    \"active_products\": [\n      {\n        \"id\": \"78b897cc-113c-ad7b-32b9-69a68889e55b\",\n        \"value\": 4646\n      },\n      {\n        \"id\": \"a1b5139f-6008-f3a2-cd42-c10196f0b12d\",\n        \"value\": 2496\n      }\n    ],\n    \"extra_user_data\": {}\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89cd6ae7-c1bb-4a3f-9350-80e85fe3640d",
+              "name": "Bad request. Something wrong with the request or JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "app-center",
+                    "v2",
+                    "partner",
+                    "viewer-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c306953-bc3e-4c66-86c5-02bbf47ce8e4",
+              "name": "Unauthorized. Incorrect JWT fields or signature",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "apis",
+                    "v4",
+                    "app-center",
+                    "v2",
+                    "partner",
+                    "viewer-status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.semrush.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "42db1565-b993-4181-8d31-ae64b5c490c4",
+    "name": "Semrush Hermes Partner API Partner Service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.",
+      "type": "text/plain"
+    }
+  }
+}

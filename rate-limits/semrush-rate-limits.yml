@@ -4,83 +4,165 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Semrush
 providerId: semrush
 created: '2026-05-04'
-modified: '2026-05-04'
+generated: '2026-08-13'
+method: searched
+source: https://developer.semrush.com/api/v4/introduction/api-usage-restrictions/
+docs: https://developer.semrush.com/api/v4/introduction/api-usage-restrictions/
+modified: '2026-08-13'
 tags:
   - Data
   - Search Engines
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Semrush API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: >-
+  Published rate limits for the Semrush API surface, read from the provider's API usage
+  restrictions page. Replaces the 2026-05-04 bulk-sweep scaffold, whose header names and
+  tier numbers were invented defaults. The real posture: a flat 10 requests per second and
+  10 concurrent requests per account across every Semrush API, per-method exceptions on the
+  Listing Management API, and — critically — no rate-limit response headers of any kind.
+
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+headers_note: >-
+  Semrush documents no X-RateLimit-*, no RateLimit-* (draft IETF) and no Retry-After header
+  on any API. The 2026-05-04 scaffold asserted all five; none of them appear in the provider's
+  documentation. A client has no runtime budget signal and learns it is throttled only by
+  receiving a 429. The one adjacent runtime signal is error.retryable in the error body.
+
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
+  serviceUnavailableLocal: 553
+responseCodes_note: >-
+  The Local API remaps server-side failures into the 55x range (550/551/553/554), so backoff
+  logic written against standard 5xx codes will not fire there. See errors/semrush-problem-types.yml.
+
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: General request rate
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies:
+      - All Semrush API methods
+    source: https://developer.semrush.com/api/v4/introduction/api-usage-restrictions/
+  - name: General concurrency
+    scope: account
+    metric: concurrent_requests
+    limit: 10
+    timeFrame: instant
+    applies:
+      - All Semrush API methods
+    source: https://developer.semrush.com/api/v4/introduction/api-usage-restrictions/
+  - name: Trends API request rate
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies:
+      - Trends API (v3)
+    note: >-
+      Daily and hourly limits were removed. Those fields remain in the API response for
+      backward compatibility but their values are no longer used or decremented — a stale
+      field that will mislead any client still reading it.
+  - name: Trends API monthly quota
+    scope: account
+    metric: requests_per_month
+    limit: null
+    timeFrame: month
+    applies:
+      - Trends API (v3)
+    note: >-
+      Subscription-dependent. The default monthly limit included with Trends API access is
+      10,000 requests; the whole monthly quota may be spent at any pace within the 10 RPS cap.
+  - name: Create Location
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies:
+      - Listing Management API v4
+  - name: Update Location
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies:
+      - Listing Management API v4
+  - name: Get Location
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies:
+      - Listing Management API v4
+  - name: Get Locations
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    applies:
+      - Listing Management API v4
+  - name: Get Categories
+    scope: account
     metric: requests_per_minute
     limit: 10
-    burst: 20
     timeFrame: minute
     applies:
-      - Semrush
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
+      - Listing Management API v4
+    note: The one endpoint limited per minute rather than per second — 600x tighter than its neighbours.
+  - name: UpdateLocation (deprecated)
+    scope: account
+    metric: requests_per_second
+    limit: 5
+    timeFrame: second
     applies:
-      - Semrush
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
+      - Listing Management API (OAuth 2.0, deprecated)
+  - name: UpdateLocations (deprecated)
+    scope: account
     metric: requests_per_minute
-    limit: 100
-    burst: 200
+    limit: 5
     timeFrame: minute
     applies:
-      - Semrush
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
+      - Listing Management API (OAuth 2.0, deprecated)
+    note: Up to 50 locations per request.
+  - name: GetLocation (deprecated)
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
     applies:
-      - Semrush
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
+      - Listing Management API (OAuth 2.0, deprecated)
+  - name: GetLocations (deprecated)
+    scope: account
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
     applies:
-      - Semrush
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+      - Listing Management API (OAuth 2.0, deprecated)
+
+limit_count: 13
+
+consumption:
+  model: api-units
+  note: >-
+    Beyond request rate, Standard API usage is metered in API units billed per returned line
+    and weighted by report type — one line of Domain Organic Search Keywords costs 10 units
+    live and 50 units historical. display_limit caps returned lines and is therefore the
+    main cost control. Balance is readable free at
+    http://www.semrush.com/users/countapiunits.html?key=<key>.
+  mcp_note: The MCP server consumes the same API unit balance.
+
+other_restrictions:
+  - name: Caching
+    detail: >-
+      Information received via the API may not be cached for more than one month without
+      Semrush's express written consent (Terms of Service section 3.3).
+
+checked: '2026-08-13'

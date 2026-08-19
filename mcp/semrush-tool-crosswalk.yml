@@ -1,0 +1,154 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/semrush-mcp.yml + openapi/_original/semrush-openapi.yml + https://developer.semrush.com/api/v4/
+provider: Semrush
+providerId: semrush
+description: >-
+  Crosswalk between the Semrush MCP tool surface and the REST operations the catalog holds
+  an OpenAPI for. The honest finding is that the two do not overlap at all: the only OpenAPI
+  Semrush publishes describes the App Center partner/billing surface, while the MCP server
+  fronts the Trends, SEO and Projects data APIs, for which Semrush publishes no machine-readable
+  contract. crosswalk[] is therefore empty by measurement, not by omission.
+
+surfaces:
+  openapi:
+    file: openapi/_original/semrush-openapi.yml
+    source: https://github.com/semrush/app-center-openapi/blob/main/openapi_spec.yaml
+    title: Semrush AppCenter API
+    server: https://api.semrush.com
+    operations: 6
+    gated: false
+    note: >-
+      Covers App Center partner integration only — JWT issuance, viewer status, and the
+      Hermes subscription/event surface. It does not describe any Semrush marketing data report.
+  mcp:
+    url: https://mcp.semrush.com/v2/mcp
+    transport: streamable-http
+    gated: true
+    note: >-
+      tools/list returns 401 before the handshake. Tool names and inputSchemas require an
+      authenticated OAuth introspection, so no tool rows are asserted here.
+  graphql:
+    endpoint: null
+    gated: null
+    note: >-
+      Semrush ships no GraphQL endpoint. graphql/semrush-schema.graphql in this repo is an
+      explicitly conceptual sketch, not a served schema, and is deliberately excluded from
+      this crosswalk.
+  rest_documented_only:
+    reference: https://developer.semrush.com/api/v4/
+    note: >-
+      The APIs the MCP server actually fronts are documented in prose with request examples
+      but ship no OpenAPI. Their real, published endpoint paths are listed under
+      undescribed_rest[] so the gap is measurable rather than invisible.
+
+crosswalk: []
+
+mcp_only: []
+
+rest_only:
+- operation: POST /app-center-api/v2/jwt-token/
+  tag: JWT Issuer
+  summary: Request API access token
+  reason: App Center partner authentication; not exposed as an MCP tool.
+- operation: POST /apis/v4/app-center/v2/partner/viewer-status
+  tag: Partner Service
+  summary: Retrieve user status (purchases, subscriptions) for an App Center app
+  reason: Partner billing surface; not exposed as an MCP tool.
+- operation: GET /apis/v4/hermes/v0/subscriptions
+  tag: Hermes Partner API
+  summary: Get available subscriptions
+  reason: Partner billing surface; not exposed as an MCP tool.
+- operation: GET /apis/v4/hermes/v0/user/{user_id}/subscription/{id}
+  tag: Hermes Partner API
+  summary: Get a user's subscription status
+  reason: Partner billing surface; not exposed as an MCP tool.
+- operation: POST /apis/v4/hermes/v0/event
+  tag: Hermes Partner API
+  summary: Send notification
+  reason: Partner billing surface; not exposed as an MCP tool.
+- operation: GET /apis/v4/hermes/v0/event/{id}
+  tag: Hermes Partner API
+  summary: Get event status
+  reason: Partner billing surface; not exposed as an MCP tool.
+
+undescribed_rest:
+  note: >-
+    Real v4 endpoints read verbatim from the request examples on developer.semrush.com.
+    Each is documented and callable but has no OpenAPI operation, so an agent cannot bind
+    to it without hand-reading the docs. This is the substantive contract gap at Semrush.
+  backlinks:
+    reference: https://developer.semrush.com/api/v4/seo/backlinks/
+    endpoints:
+    - GET /apis/v4/backlinks/v1/overview
+    - GET /apis/v4/backlinks/v1/summary
+    - GET /apis/v4/backlinks/v1/links
+    - GET /apis/v4/backlinks/v1/ref-domains
+    - GET /apis/v4/backlinks/v1/ref-ips
+    - GET /apis/v4/backlinks/v1/pages
+    - GET /apis/v4/backlinks/v1/anchors
+    - GET /apis/v4/backlinks/v1/score-profile
+    - GET /apis/v4/backlinks/v1/competitors
+    - GET /apis/v4/backlinks/v1/comparison
+    - GET /apis/v4/backlinks/v1/matrix
+  keywords:
+    reference: https://developer.semrush.com/api/v4/seo/keyword-reports/
+    endpoints:
+    - GET /apis/v4/keywords/v1/metrics
+  projects:
+    reference: https://developer.semrush.com/api/v4/projects/projects/
+    endpoints:
+    - GET /apis/v4/projects/v1/projects
+    - GET /apis/v4/projects/v1/projects/{project_id}
+    - POST /apis/v4/projects/v1/projects
+    - PATCH /apis/v4/projects/v1/projects/{project_id}
+    - DELETE /apis/v4/projects/v1/projects/{project_id}
+  local_listing_management:
+    reference: https://developer.semrush.com/api/v4/local/listing-management/
+    endpoints:
+    - GET /apis/v4/local/v1/locations
+    - POST /apis/v4/local/v1/locations
+    - GET /apis/v4/local/v1/locations/{location_id}
+    - PATCH /apis/v4/local/v1/locations/{location_id}
+    - DELETE /apis/v4/local/v1/locations/{location_id}
+    - GET /apis/v4/local/v1/locations/{location_id}/listings
+    - GET /apis/v4/local/v1/locations/{location_id}/images
+    - GET /apis/v4/local/v1/locations/{location_id}/payment-options
+    - GET /apis/v4/local/v1/locations/{location_id}/more-hour-types
+    - POST /apis/v4/local/v1/listings/{listing_id}/enable
+    - POST /apis/v4/local/v1/listings/{listing_id}/disable
+    - GET /apis/v4/local/v1/categories
+    - GET /apis/v4/local/v1/images/{image_id}
+  map_rank_tracker:
+    reference: https://developer.semrush.com/api/v4/local/map-rank-tracker/
+    endpoints:
+    - GET /apis/v4/map-rank-tracker/v0/campaigns
+    - POST /apis/v4/map-rank-tracker/v0/campaigns
+    - GET /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}
+    - PATCH /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}
+    - DELETE /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}
+    - GET /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}/keywords
+    - GET /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}/heatmap
+    - GET /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}/metrics
+    - GET /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}/top-competitors
+    - POST /apis/v4/map-rank-tracker/v0/campaigns/{campaign_id}/collect
+    - GET /apis/v4/map-rank-tracker/v0/limits
+  auth:
+    reference: https://developer.semrush.com/api/v4/get-started/authorization/
+    endpoints:
+    - POST https://oauth.semrush.com/dag/device/code
+    - GET /apis/v4/auth/v0/oauth2/auth
+    - POST /apis/v4-raw/auth/v1/oauth2/access_token
+    - POST /apis/v4-raw/auth/v1/oauth2/register
+    - POST /apis/v4/auth/v1/oauth2/revoke
+
+coverage:
+  mcp_tools_total: null
+  mcp_tools_mapped: 0
+  rest_operations_total: 6
+  rest_operations_mapped: 0
+  rest_operations_unmapped: 6
+  documented_rest_endpoints_without_openapi: 44
+  note: >-
+    mcp_tools_total is null, not zero: the server exists and serves tools, but the list is
+    behind OAuth. Zero would assert an empty server, which is not what was measured.

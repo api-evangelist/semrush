@@ -1,0 +1,70 @@
+overlay: 1.0.0
+info:
+  title: Semrush Hermes Partner API — API Evangelist enhancements
+  version: 1.0.0
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Derived from https://developer.semrush.com/api/v4/ and
+  https://github.com/semrush/app-center-openapi. Applies to
+  openapi/semrush-hermes-partner-api-api-openapi.yml. The original spec is never mutated.
+extends: ../openapi/semrush-hermes-partner-api-api-openapi.yml
+actions:
+- target: $.info
+  description: Attach provenance, contact and external documentation the upstream spec omits.
+  update:
+    contact:
+      name: Semrush API Support
+      email: mail@semrush.com
+      url: https://developer.semrush.com/api/
+    termsOfService: https://www.semrush.com/company/legal/terms-of-service/
+    x-upstream-source: https://github.com/semrush/app-center-openapi/blob/main/openapi_spec.yaml
+    x-upstream-title: Semrush AppCenter API
+    x-provider: Semrush
+    x-provider-id: semrush
+- target: $
+  description: >-
+    Add external documentation and declare the runtime semantics that live only in prose on
+    the Semrush developer portal.
+  update:
+    externalDocs:
+      description: Semrush API documentation
+      url: https://developer.semrush.com/api/v4/
+    x-rate-limits:
+      requests_per_second: 10
+      concurrent_requests: 10
+      scope: account
+      response_headers: none
+      source: https://developer.semrush.com/api/v4/introduction/api-usage-restrictions/
+    x-error-envelope:
+      shape: 'meta{success,status_code,request_id} + (data|error)'
+      rfc9457: false
+      artifact: errors/semrush-problem-types.yml
+    x-idempotency:
+      supported: false
+      note: No idempotency key is documented for any Semrush write operation.
+    x-caching-restriction: >-
+      Terms of Service section 3.3 forbids caching API-derived information for more than one
+      month without express written consent.
+- target: $.paths['/apis/v4/hermes/v0/subscriptions'].get
+  description: Add a stable operationId — the upstream spec declares none anywhere.
+  update:
+    operationId: getHermesSubscriptions
+    x-operation-id-source: api-evangelist-overlay
+- target: $.paths['/apis/v4/hermes/v0/user/{user_id}/subscription/{id}'].get
+  description: Add a stable operationId.
+  update:
+    operationId: getHermesUserSubscriptionStatus
+    x-operation-id-source: api-evangelist-overlay
+- target: $.paths['/apis/v4/hermes/v0/event'].post
+  description: Add a stable operationId and flag the write consequence.
+  update:
+    operationId: createHermesEvent
+    x-operation-id-source: api-evangelist-overlay
+    x-consequence: write
+    x-safe-to-retry: false
+- target: $.paths['/apis/v4/hermes/v0/event/{id}'].get
+  description: Add a stable operationId.
+  update:
+    operationId: getHermesEventStatus
+    x-operation-id-source: api-evangelist-overlay

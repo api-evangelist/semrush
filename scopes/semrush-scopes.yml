@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://mcp.semrush.com/.well-known/oauth-authorization-server +
+  https://mcp.semrush.com/.well-known/oauth-protected-resource/v2/mcp +
+  https://developer.semrush.com/api/v4/get-started/authorization/
+docs: https://developer.semrush.com/api/v4/get-started/authorization/
+provider: Semrush
+providerId: semrush
+description: >-
+  OAuth 2.0 scope inventory for Semrush. The authorization server advertises exactly one
+  scope. Semrush publishes no scopes reference page and no permission catalogue for its
+  OAuth APIs; the only scope in existence is the one the MCP resource declares, and the
+  device-authorization documentation treats scope as optional ("if the API requires scopes").
+
+authorization_server:
+  issuer: https://api.semrush.com/apis/v4/auth/v1/oauth/access_token
+  metadata_url: https://mcp.semrush.com/.well-known/oauth-authorization-server
+  authorization_endpoint: https://api.semrush.com/apis/v4/auth/v0/oauth2/auth
+  token_endpoint: https://api.semrush.com/apis/v4-raw/auth/v1/oauth2/access_token
+  registration_endpoint: https://api.semrush.com/apis/v4-raw/auth/v1/oauth2/register
+  revocation_endpoint: https://api.semrush.com/apis/v4/auth/v1/oauth2/revoke
+  device_authorization_endpoint: https://oauth.semrush.com/dag/device/code
+  grant_types:
+  - authorization_code
+  - refresh_token
+  - 'urn:ietf:params:oauth:grant-type:device_code'
+  device_grant_note: >-
+    The device grant is documented in the developer portal (RFC 8628, "recommended") but is
+    not advertised in the RFC 8414 metadata document, which lists only authorization_code
+    and refresh_token. The metadata and the docs disagree.
+  pkce: [S256, plain]
+  token_endpoint_auth_methods: [none]
+
+scopes:
+- name: mcp.access
+  description: >-
+    Grants an MCP client access to the Semrush MCP server, and through it to the Trends API,
+    the whole SEO API, and the read-only methods of the Projects API v3. A single coarse
+    scope — there is no per-API, per-report or read/write split at the OAuth layer.
+  resources:
+  - https://mcp.semrush.com/v1/mcp
+  - https://mcp.semrush.com/v2/mcp
+  source: RFC 8414 + RFC 9728 metadata documents, fetched 2026-08-13
+
+scope_count: 1
+
+non_oauth_permissions:
+  note: >-
+    Semrush's real authorization granularity lives on the API key, not on OAuth scopes. A v4
+    API key carries one of two permission settings, plus a TTL.
+  model:
+  - permission: Read-only
+    grants: GET requests
+    example: Get Location
+  - permission: Read and write
+    grants: GET, POST, PUT, PATCH, DELETE
+    example: Create Location
+  key_limits:
+    max_v4_keys_per_account: 100
+    revocable: true
+    ttl_configurable: true
+
+gaps:
+- No scopes or permissions reference page is published in the developer portal.
+- >-
+  The OAuth-authorized REST APIs (Map Rank Tracker, deprecated Projects, deprecated Listing
+  Management) document no scope values at all — only "include an optional scope parameter
+  if the API requires scopes".
+- >-
+  mcp.access is all-or-nothing: an agent granted it can read every report the subscription
+  entitles, with no way for a user to narrow the grant.
+
+x-evidence:
+- url: https://mcp.semrush.com/.well-known/oauth-authorization-server
+  http_status: 200
+- url: https://mcp.semrush.com/.well-known/oauth-protected-resource/v2/mcp
+  http_status: 200
+- url: https://developer.semrush.com/api/v4/get-started/authorization/
+  http_status: 200
+checked: '2026-08-13'

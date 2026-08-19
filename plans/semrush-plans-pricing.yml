@@ -4,135 +4,215 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Semrush
 providerId: semrush
 created: '2026-05-04'
-modified: '2026-05-04'
+generated: '2026-08-13'
+method: searched
+source: https://www.semrush.com/prices/
+docs: https://developer.semrush.com/api/v4/get-started/api-access/
+modified: '2026-08-13'
 tags:
   - Data
   - Search Engines
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Pricing
+description: >-
+  Published plans and API access requirements for Semrush, read from the public pricing page
+  and the developer portal's API access guide. Replaces the 2026-05-04 bulk-sweep scaffold,
+  whose free/pro/enterprise tiers and 1,000-request quota were invented defaults that match
+  nothing Semrush sells. The real model has two layers: a platform subscription that decides
+  whether you may call the API at all, and a separately purchased API unit balance that
+  decides how much you may call.
+
+currency: USD
+billing_periods: [monthly, annual]
+annual_discount: up to 17%
+
 plans:
-  - id: semrush-free
+  - id: free
     name: Free
-    type: freemium
-    description: Free entry tier for the Semrush API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    type: free
+    price: '0.00'
+    period: month
+    api_access: false
+    description: Platform trial. No credit card required, and no API access.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Projects
         type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
+        limit: 1
+        note: 1 demo project
+      - label: Reports per day
+        type: quota
         limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Semrush
-  - id: semrush-pro
-    name: Professional
+        note: Across all vital tools
+  - id: seo
+    name: SEO
     type: paid
-    description: Production tier for Semrush. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    price: '139.00'
+    price_annual_monthly: '117.33'
+    period: month
+    api_access: false
+    description: For freelancers and small businesses. SEO + AI Search. No API access.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Websites to monitor
         type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
+        limit: 5
+      - label: Keywords tracked daily
+        type: quota
+        limit: 500
+  - id: starter
+    name: Starter
+    type: paid
+    price: null
+    period: month
+    api_access: false
+    description: >-
+      For small teams and agencies growing across organic search and AI. Named as an MCP-eligible
+      plan in the Semrush MCP docs (as "Semrush One Starter") with 50,000 API units included.
+    entries:
+      - label: Websites to monitor
+        type: quota
+        limit: 5
+      - label: Keywords tracked daily
+        type: quota
+        limit: 500
+  - id: pro-plus
+    name: Pro+
+    type: paid
+    price: '299.00'
+    price_annual_monthly: '248.17'
+    period: month
+    api_access: false
+    description: >-
+      Adds historical SEO data, content optimization, cannibalization analysis and
+      multi-location/device tracking. Named as an MCP-eligible plan ("Semrush One Pro+").
+    entries:
+      - label: Websites to monitor
+        type: quota
+        limit: 15
+      - label: Keywords tracked daily
+        type: quota
+        limit: 1500
+      - label: Prompts tracked daily
+        type: quota
         limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Semrush
-  - id: semrush-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Semrush. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+  - id: advanced
+    name: Advanced
+    type: paid
+    price: '549.00'
+    price_annual_monthly: '455.67'
+    period: month
+    api_access: true
+    description: >-
+      The lowest self-serve tier the pricing page lists as including "API data integration".
+      Named in the MCP docs as "Semrush One Advanced", where MCP access still requires an
+      additional API units package.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: Websites to monitor
         type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Semrush
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+        limit: 40
+      - label: Keywords tracked daily
+        type: quota
+        limit: 5000
+      - label: Prompts tracked daily
+        type: quota
+        limit: 200
+      - label: API data integration
+        type: feature
+  - id: enterprise
+    name: Semrush for Enterprise
+    type: custom
+    price: null
+    period: null
+    api_access: true
+    description: Custom pricing, quoted by sales.
+    entries:
+      - label: Custom integrations & API
+        type: feature
+      - label: SSO, team governance & audit logs
+        type: feature
+      - label: Enterprise SLA & 24/7 support
+        type: feature
+      - label: Projects
+        type: quota
+        limit: null
+        note: Unlimited projects and custom limits
+
+plan_count: 6
+
+api_products:
+  - id: standard-api
+    name: Standard API (SEO API + Projects API)
+    requires_subscription: SEO Toolkit Business subscription
+    metering: api-units
+    note: >-
+      Upgrading to SEO Business grants the right to buy units; the unit balance starts at zero
+      and units must be purchased separately before any call succeeds.
+    unit_packages:
+      - 2000000
+      - 5000000
+      - 10000000
+      - 20000000
+    unit_pricing_published: false
+    unit_cost_examples:
+      - report: Domain Organic Search Keywords (live)
+        units_per_line: 10
+      - report: Domain Organic Search Keywords (historical)
+        units_per_line: 50
+    source: https://developer.semrush.com/api/v4/get-started/api-access/
+  - id: trends-api
+    name: Trends API
+    tiers:
+      - name: Trends Basic API
+        purchase: self-serve from the Traffic & Market page
+        price_published: false
+      - name: Trends Premium API
+        purchase: sales quote via the Sales Inquiry form
+        price_published: false
+        note: Adds 16 further data types over Basic.
+    included_monthly_requests: 10000
+    metering: request-quota (does not consume Standard API units)
+    source: https://developer.semrush.com/api/v4/get-started/api-access/
+  - id: listing-management-api
+    name: Listing Management API
+    requires_subscription: Semrush Local Pro or Local Business
+    metering: none
+    note: No API units required.
+    source: https://developer.semrush.com/api/v4/local/overview/
+  - id: map-rank-tracker-api
+    name: Map Rank Tracker API
+    requires_subscription: none
+    metering: none
+    note: >-
+      Available to all Semrush users with no special subscription and no API units. The only
+      Semrush API a free account can reach.
+    source: https://developer.semrush.com/api/v4/get-started/api-access/
+  - id: mcp
+    name: Semrush MCP
+    requires_subscription: >-
+      Semrush One Starter, Semrush One Pro+, SEO Classic Pro or SEO Classic Guru (50,000 units
+      included, refreshed on renewal); or SEO Classic Business / Semrush One Advanced plus an
+      API units package; or any Trends API plan.
+    metering: api-units
+    source: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
+
+add_ons:
+  - name: Additional Users
+    price_from: '45.00'
+    period: month
+  - name: Lead Generation
+    price: '90.00'
+    period: month
+  - name: Base Report
+    price: '10.00'
+    period: month
+  - name: Pro Report
+    price: '20.00'
+    period: month
+
+gaps:
+  - API unit package prices are not published; the packages are named but not priced.
+  - Trends API Basic and Premium prices are not published on the pricing page.
+  - >-
+    The plan names on the public pricing page (SEO, Starter, Pro+, Advanced) do not match the
+    plan names in the MCP entitlement docs (Semrush One Starter, SEO Classic Pro, SEO Classic
+    Guru, SEO Classic Business). A buyer cannot map entitlement to price without contacting sales.
+
+checked: '2026-08-13'

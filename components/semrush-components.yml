@@ -1,0 +1,58 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.semrush.com/intergalactic/ + https://github.com/semrush/intergalactic
+provider: Semrush
+providerId: semrush
+description: >-
+  Semrush publishes one client-side component surface: Intergalactic, its open-source React
+  design system, distributed on npm under the @semcore scope and documented on the same
+  developer host as the API reference. It is a UI library for building Semrush-styled
+  interfaces — including App Center apps — not an embedded-dashboard or hosted-widget product.
+  Semrush publishes no embeddable data widget, no web component, and no hosted prebuilt
+  surface for its marketing data.
+
+families:
+- name: Intergalactic Design System
+  kind: react-component-library
+  docs: https://developer.semrush.com/intergalactic/
+  repository: https://github.com/semrush/intergalactic
+  license: MIT
+  loader:
+    type: npm
+    package: '@semcore/ui'
+    version: 17.5.0
+    published: '2026-07-30'
+    install: npm install @semcore/ui
+    note: >-
+      The umbrella package re-exports every single-component package. Individual components
+      are also publishable and installable on their own from the same @semcore scope.
+  distribution: npm only — no CDN bundle and no unpkg/jsDelivr loader documented.
+  component_packages_sampled:
+  - name: '@semcore/core'
+    version: 17.3.0
+    published: '2026-07-30'
+  - name: '@semcore/icon'
+    version: 17.2.0
+    published: '2026-06-05'
+  - name: '@semcore/data-table'
+    version: 17.2.1
+    published: '2026-06-26'
+  - name: '@semcore/d3-chart'
+    version: 17.3.0
+    published: '2026-06-26'
+  - name: '@semcore/select'
+    version: 17.4.1
+    published: '2026-07-24'
+  - name: '@semcore/carousel'
+    version: 17.2.3
+    published: '2026-07-24'
+  note: >-
+    Sampled from the npm registry on 2026-08-13; the scope carries well over a hundred
+    single-component packages, all versioned and released together on the 17.x line.
+
+embeddable_data_surfaces: []
+embeddable_data_surfaces_note: >-
+  No embeddable report widget, iframe embed, or hosted dashboard is documented for Semrush
+  marketing data. App Center apps consume the partner APIs directly and render their own UI.
+
+checked: '2026-08-13'

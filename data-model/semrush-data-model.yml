@@ -1,0 +1,248 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/semrush-openapi.yml + https://developer.semrush.com/api/v4/
+provider: Semrush
+providerId: semrush
+description: >-
+  Entity-relationship view of the Semrush API surface. The App Center partner entities are
+  derived from the published OpenAPI's components/schemas and $ref graph. The marketing-data
+  entities are read from the v4 reference prose, where they are documented but have no schema
+  to derive from — they are recorded separately and marked so, rather than mixed in as if
+  they came from a contract.
+
+entities_from_openapi:
+  source: openapi/_original/semrush-openapi.yml
+  note: >-
+    The App Center spec is envelope-heavy: three of its four response schemas type their
+    payload as an untyped `data: object`, so the actual partner objects are undescribed even
+    inside the one spec Semrush does publish.
+  entities:
+  - name: responseMeta
+    kind: envelope
+    fields:
+    - {name: success, type: boolean}
+    - {name: status_code, type: integer}
+    - {name: request_id, type: string}
+    note: The shared envelope on every Semrush response across every API.
+  - name: issuerJwtRequest
+    kind: request
+    fields:
+    - {name: jwt, type: string}
+    operation: POST /app-center-api/v2/jwt-token/
+  - name: issuerJwtResponse
+    kind: response
+    fields:
+    - {name: jwt, type: string}
+    operation: POST /app-center-api/v2/jwt-token/
+  - name: issuerErrorMessage
+    kind: error
+    fields:
+    - {name: message, type: string}
+    - {name: message_code, type: string}
+    - {name: code, type: integer}
+  - name: viewerStatusRequest
+    kind: request
+    fields:
+    - {name: user_id, type: integer}
+    operation: POST /apis/v4/app-center/v2/partner/viewer-status
+  - name: viewerStatusResponse
+    kind: response
+    fields:
+    - {name: meta, type: responseMeta}
+    - {name: data, type: object}
+  - name: viewerActiveProduct
+    kind: object
+    fields:
+    - {name: id, type: string}
+    - {name: value, type: integer}
+  - name: appSubscriptionsResponse
+    kind: response
+    fields:
+    - {name: meta, type: responseMeta}
+    - {name: data, type: object}
+    operation: GET /apis/v4/hermes/v0/subscriptions
+  - name: appUserSubscriptionStatusResponse
+    kind: response
+    fields:
+    - {name: meta, type: responseMeta}
+    - {name: data, type: object}
+    operation: GET /apis/v4/hermes/v0/user/{user_id}/subscription/{id}
+  - name: createEventRequest
+    kind: request
+    fields:
+    - {name: type, type: string}
+    - {name: id, type: string}
+    - {name: user_id, type: integer}
+    - {name: data, type: string}
+    - {name: attachments, type: 'array<eventAttachment>'}
+    operation: POST /apis/v4/hermes/v0/event
+  - name: eventAttachment
+    kind: object
+    fields:
+    - {name: name, type: string}
+    - {name: mime, type: string}
+    - {name: content, type: string}
+  - name: eventAction
+    kind: object
+    fields:
+    - {name: id, type: string}
+    - {name: ts, type: string}
+    - {name: type, type: string}
+    - {name: finished, type: boolean}
+    - {name: notification, type: actionNotification}
+  - name: actionNotification
+    kind: object
+    fields:
+    - {name: channel, type: string}
+    - {name: subscription_id, type: integer}
+    - {name: recipient_id, type: integer}
+  - name: eventResponse
+    kind: response
+    fields:
+    - {name: meta, type: responseMeta}
+    - {name: data, type: object}
+    operation: GET /apis/v4/hermes/v0/event/{id}
+  - name: eventState
+    kind: enum
+    type: integer
+
+relationships:
+- from: eventAction
+  to: actionNotification
+  type: has_one
+  via: notification
+  confidence: high
+  source: '$ref in openapi/_original/semrush-openapi.yml'
+- from: createEventRequest
+  to: eventAttachment
+  type: has_many
+  via: attachments
+  confidence: high
+  source: 'items $ref in openapi/_original/semrush-openapi.yml'
+- from: eventResponse
+  to: responseMeta
+  type: has_one
+  via: meta
+  confidence: high
+- from: viewerStatusResponse
+  to: responseMeta
+  type: has_one
+  via: meta
+  confidence: high
+- from: appSubscriptionsResponse
+  to: responseMeta
+  type: has_one
+  via: meta
+  confidence: high
+- from: appUserSubscriptionStatusResponse
+  to: responseMeta
+  type: has_one
+  via: meta
+  confidence: high
+- from: actionNotification
+  to: subscription
+  type: belongs_to
+  via: subscription_id
+  confidence: medium
+  note: >-
+    Id-reference inference. subscription_id points at a Hermes subscription but the target
+    schema is an untyped `data: object`, so the link cannot be resolved inside the spec.
+- from: actionNotification
+  to: user
+  type: belongs_to
+  via: recipient_id
+  confidence: medium
+  note: Id-reference inference; no user schema is defined in the spec.
+- from: createEventRequest
+  to: user
+  type: belongs_to
+  via: user_id
+  confidence: medium
+- from: viewerStatusRequest
+  to: user
+  type: belongs_to
+  via: user_id
+  confidence: medium
+- from: appUserSubscriptionStatusResponse
+  to: user
+  type: belongs_to
+  via: 'path parameter user_id'
+  confidence: high
+- from: appUserSubscriptionStatusResponse
+  to: subscription
+  type: belongs_to
+  via: 'path parameter id'
+  confidence: high
+
+entities_from_docs:
+  note: >-
+    Documented in the v4 reference with named fields and identifiers, but with no OpenAPI,
+    JSON Schema or any other machine-readable definition. Listed so the modelled surface is
+    visible; not derived from a contract.
+  entities:
+  - name: Project
+    api: Projects API v4
+    identifier: project_id (numeric, e.g. 643526670283248)
+    collection: /apis/v4/projects/v1/projects
+    reference: https://developer.semrush.com/api/v4/projects/projects/
+  - name: Location
+    api: Listing Management API v4
+    identifier: location_id (32-char hex)
+    collection: /apis/v4/local/v1/locations
+    has_many: [Listing, Image]
+    reference: https://developer.semrush.com/api/v4/local/listing-management/
+  - name: Listing
+    api: Listing Management API v4
+    identifier: listing_id (32-char hex)
+    belongs_to: Location
+    collection: /apis/v4/local/v1/locations/{location_id}/listings
+  - name: Image
+    api: Listing Management API v4
+    identifier: image_id (32-char hex)
+    belongs_to: Location
+    collection: /apis/v4/local/v1/locations/{location_id}/images
+  - name: Category
+    api: Listing Management API v4
+    collection: /apis/v4/local/v1/categories
+  - name: PaymentOption
+    api: Listing Management API v4
+    belongs_to: Location
+  - name: MoreHourType
+    api: Listing Management API v4
+    belongs_to: Location
+  - name: Campaign
+    api: Map Rank Tracker API
+    identifier: campaign_id (UUID)
+    collection: /apis/v4/map-rank-tracker/v0/campaigns
+    has_many: [Keyword, Heatmap, Metric, Competitor]
+    reference: https://developer.semrush.com/api/v4/local/map-rank-tracker/
+  - name: Backlink
+    api: Backlinks API v4
+    fields_reference: >-
+      anchor, backlinks_count, domain_score, page_score, first_seen_at, is_follow, is_lost,
+      is_new, is_nofollow, is_image, is_form, is_frame, is_sponsored, is_ugc, ip_address,
+      external_links_count, internal_links_count, image_alt, image_url
+    reference: https://developer.semrush.com/api/v4/seo/backlinks/
+  - name: Keyword
+    api: Keywords API v4
+    fields_reference: cpc, competitive_density, intents, volume
+    reference: https://developer.semrush.com/api/v4/seo/keyword-reports/
+
+id_conventions:
+- surface: Listing Management API v4
+  format: 32-character lowercase hexadecimal
+  example_shape: 04f447bda9f845d691fb4cc37daba031
+- surface: Map Rank Tracker API
+  format: RFC 4122 UUID
+  example_shape: 0410f1d2-2bdb-4554-a761-0c15d636105b
+- surface: Projects API v4
+  format: numeric string
+- surface: App Center / Hermes
+  format: mixed — integer user_id and subscription_id, string event id
+note_on_id_conventions: >-
+  Four different identifier formats across five APIs, with no prefixed or self-describing ids
+  anywhere. An agent holding a bare id cannot tell which API it belongs to.
+
+render: null
+render_note: No subway/ directory exists in this repo.
+checked: '2026-08-13'

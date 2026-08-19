@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  https://developer.semrush.com/api/v4/ + openapi/_original/semrush-openapi.yml +
+  https://developer.semrush.com/api/v4/introduction/semrush-mcp/
+provider: Semrush
+providerId: semrush
+description: >-
+  Packaged Agent Skills for the Semrush API surface. Semrush publishes no skills, no
+  AGENTS.md and no agent instructions of its own — probed on developer.semrush.com and
+  www.semrush.com on 2026-08-13 — so these are generated from the provider's own reference
+  and from the OpenAPI held in this repo. Each is grounded in real, published endpoints;
+  none invents an operation.
+
+provider_published_skills: false
+provider_published_skills_note: >-
+  No /skills, /agents.md or /AGENTS.md is served on any Semrush host. www.semrush.com/llms.txt
+  exists and links the API docs and the MCP page but carries no tool or skill definitions.
+
+skills:
+- name: semrush-backlink-profile-audit
+  file: semrush-backlink-profile-audit.md
+  api: Semrush Backlinks API v4
+  method: generated
+  grounding: >-
+    Endpoints, query parameters and unit costs read verbatim from
+    https://developer.semrush.com/api/v4/seo/backlinks/. No OpenAPI exists for this API.
+  operations: 7
+- name: semrush-app-center-partner-integration
+  file: semrush-app-center-partner-integration.md
+  api: Semrush AppCenter API
+  method: generated
+  grounding: >-
+    All six operations are real paths in openapi/_original/semrush-openapi.yml. operationIds
+    referenced come from overlays/, not from upstream — the upstream spec declares none.
+  operations: 6
+- name: semrush-connect-mcp
+  file: semrush-connect-mcp.md
+  api: Semrush MCP
+  method: generated
+  grounding: >-
+    Endpoint, transport and OAuth chain confirmed by live probe of mcp.semrush.com on
+    2026-08-13. Tool names deliberately omitted — tools/list is auth-gated.
+  operations: 1
+
+not_written:
+- api: Listing Management API v4
+  reason: >-
+    13 documented endpoints but no OpenAPI and no operationIds. A skill would have to
+    restate the whole reference from prose; deferred rather than approximated.
+- api: Map Rank Tracker API
+  reason: 11 documented endpoints, no machine-readable contract.
+- api: Projects API v4
+  reason: 5 documented endpoints, no machine-readable contract.
+
+checked: '2026-08-13'
