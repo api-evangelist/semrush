@@ -142,6 +142,9 @@ apis:
   tags:
   - MCP
   - AI Agents
+  tags_raw:
+  - MCP
+  - AI Agents
   - Model Context Protocol
   properties:
   - type: MCPServer
