@@ -79,7 +79,7 @@ common:
   url: https://www.linkedin.com/company/semrush
 apis:
 - aid: semrush:semrush-hermes-partner-api-api
-  name: Semrush Hermes Partner API API
+  name: Semrush Hermes Partner API
   description: The Hermes Partner API API from Semrush — 4 operation(s) for hermes partner api.
   humanURL: https://developer.semrush.com/api/
   baseURL: https://api.semrush.com
@@ -134,11 +134,10 @@ apis:
     url: graphql/semrush-graphql.md
 - aid: semrush:semrush-mcp
   name: Semrush MCP
-  description: >-
-    Semrush's first-party hosted Model Context Protocol server. Streamable HTTP transport
-    only, OAuth-gated with the single scope mcp.access, and metered against the same API
-    unit balance as the REST APIs. Fronts the Trends API, the whole SEO API, and the
-    read-only methods of the Projects API v3.
+  description: Semrush's first-party hosted Model Context Protocol server. Streamable HTTP transport only,
+    OAuth-gated with the single scope mcp.access, and metered against the same API unit balance as the
+    REST APIs. Fronts the Trends API, the whole SEO API, and the read-only methods of the Projects API
+    v3.
   humanURL: https://developer.semrush.com/api/v4/introduction/semrush-mcp/
   baseURL: https://mcp.semrush.com/v2/mcp
   tags:
@@ -198,14 +197,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/semrush.png
 access: 3rd-Party
 created: '2024-11-14'
-modified: '2026-08-13'
+modified: '2026-09-16'
 position: Consuming
-description: SEMrush is an all-in-one digital marketing tool that helps businesses
-  improve their online visibility and attract more customers. This powerful software
-  provides a range of tools and features for keyword research, website analysis, competitive
-  analysis, and more. With SEMrush, businesses can track their online rankings, discover
-  new keywords to target, analyze their competitors' strategies, and optimize their
-  website for better search engine performance.
+description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online
+  visibility and attract more customers. This powerful software provides a range of tools and features
+  for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can
+  track their online rankings, discover new keywords to target, analyze their competitors' strategies,
+  and optimize their website for better search engine performance.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
