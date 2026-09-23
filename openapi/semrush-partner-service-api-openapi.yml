@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Semrush Hermes Partner API Partner Service API
+  title: Semrush Partner Service API
   version: 0.0.1
-  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.
+  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers.
 servers:
 - url: https://api.semrush.com
 tags:
@@ -15,9 +15,7 @@ paths:
       summary: Semrush User status
       description: 'Retrieves user status, related to the app (purchases, subscriptions)
 
-        [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/viewer-status)
-
-        '
+        Documentation'
       security:
       - jwtIssuerToken: []
       requestBody:
@@ -36,32 +34,10 @@ paths:
           $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+      operationId: postApisV4AppCenterV2PartnerViewerStatus
+      x-operation-id-source: derived
 components:
-  responses:
-    '401':
-      description: Unauthorized. Incorrect JWT fields or signature
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
-    '400':
-      description: Bad request. Something wrong with the request or JWT
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/errorMessage'
   schemas:
-    responseMeta:
-      type: object
-      description: Response metadata
-      properties:
-        success:
-          type: boolean
-        status_code:
-          type: integer
-          example: 200
-        request_id:
-          type: string
     viewerActiveProduct:
       type: object
       properties:
@@ -73,6 +49,10 @@ components:
           type: integer
           description: Amount of bought product (1 for one-time products, >1 in other cases)
           minimum: 0
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
     viewerStatusRequest:
       type: object
       properties:
@@ -112,13 +92,34 @@ components:
               items:
                 $ref: '#/components/schemas/viewerActiveProduct'
             extra_user_data:
-              type: object
-              nullable: true
+              type:
+              - object
+              - 'null'
               description: Reserved for future use
-    errorMessage:
-      type: string
-      maxLength: 256
-      description: A text message describing an error
+    responseMeta:
+      type: object
+      description: Response metadata
+      properties:
+        success:
+          type: boolean
+        status_code:
+          type: integer
+          example: 200
+        request_id:
+          type: string
+  responses:
+    '401':
+      description: Unauthorized. Incorrect JWT fields or signature
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
+    '400':
+      description: Bad request. Something wrong with the request or JWT
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorMessage'
   securitySchemes:
     jwtIssuerToken:
       type: http

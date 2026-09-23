@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Semrush Hermes Partner API API
+  title: Semrush Hermes Partner API
   version: 0.0.1
-  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance. Overall, SEMrush is a essential tool for any business looking to succeed in the competitive world of online marketing.
+  description: SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers.
 servers:
 - url: https://api.semrush.com
 tags:
@@ -15,9 +15,7 @@ paths:
       summary: Semrush Get available subscriptions
       description: 'List all application''s registered subscriptions
 
-        [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#available-subscriptions)
-
-        '
+        Documentation'
       security:
       - jwtIssuerToken: []
       responses:
@@ -31,14 +29,14 @@ paths:
           $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getApisV4HermesV0Subscriptions
+      x-operation-id-source: derived
   /apis/v4/hermes/v0/user/{user_id}/subscription/{id}:
     get:
       tags:
       - Hermes Partner API
       summary: Semrush Get user's subscription status
-      description: '[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#subscription-status)
-
-        '
+      description: Documentation
       security:
       - jwtIssuerToken: []
       parameters:
@@ -65,14 +63,14 @@ paths:
           $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getApisV4HermesV0UserByUserIdSubscriptionById
+      x-operation-id-source: derived
   /apis/v4/hermes/v0/event:
     post:
       tags:
       - Hermes Partner API
       summary: Semrush Send notification
-      description: '[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#sending-notification)
-
-        '
+      description: Documentation
       security:
       - jwtIssuerToken: []
       requestBody:
@@ -87,14 +85,14 @@ paths:
           $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+      operationId: postApisV4HermesV0Event
+      x-operation-id-source: derived
   /apis/v4/hermes/v0/event/{id}:
     get:
       tags:
       - Hermes Partner API
       summary: Semrush Get event status
-      description: '[Documentation](https://www.semrush.com/apps/docs/server-to-server-api/notifications#event-status)
-
-        '
+      description: Documentation
       security:
       - jwtIssuerToken: []
       parameters:
@@ -117,8 +115,86 @@ paths:
           $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+      operationId: getApisV4HermesV0EventById
+      x-operation-id-source: derived
 components:
   schemas:
+    actionNotification:
+      type: object
+      description: Action notification details
+      properties:
+        channel:
+          type: string
+          description: Sending channel
+        subscription_id:
+          type: integer
+          description: ID of subscription
+        recipient_id:
+          type: integer
+          description: ID of subscriber
+    createEventRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          description: type of event
+        id:
+          type: string
+          format: uuid
+          description: UUID, global event identifier, idempotency key; we suggest using V4 UUIDs
+        user_id:
+          type: integer
+          description: Semrush's user ID
+        data:
+          type: string
+          format: byte
+          example: eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=
+        attachments:
+          type: array
+          description: Additional files
+          items:
+            $ref: '#/components/schemas/eventAttachment'
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+    eventAttachment:
+      type: object
+      description: Event additional files
+      properties:
+        name:
+          type: string
+          description: File name
+        mime:
+          type: string
+          example: application/pdf
+          description: File content mime type
+        content:
+          type: string
+          format: byte
+          example: eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=
+          description: File content in Base64
+    eventState:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      description: 'State of event processing.
+
+        * 1 - Event has been registered and awaiting processing
+
+        * 2 - Event processing was delayed
+
+        * 3 - Event was processed
+
+        * 4 - Event has nothing to do with
+
+        * 5 - Event processing was blocked by internal rules
+
+        '
     eventResponse:
       type: object
       description: Create event response object
@@ -151,32 +227,6 @@ components:
               description: Actions taken on event
               items:
                 $ref: '#/components/schemas/eventAction'
-    errorMessage:
-      type: string
-      maxLength: 256
-      description: A text message describing an error
-    createEventRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          description: type of event
-        id:
-          type: string
-          format: uuid
-          description: UUID, global event identifier, idempotency key; we suggest using V4 UUIDs
-        user_id:
-          type: integer
-          description: Semrush's user ID
-        data:
-          type: string
-          format: byte
-          example: eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=
-        attachments:
-          type: array
-          description: Additional files
-          items:
-            $ref: '#/components/schemas/eventAttachment'
     responseMeta:
       type: object
       description: Response metadata
@@ -188,77 +238,19 @@ components:
           example: 200
         request_id:
           type: string
-    eventState:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      description: 'State of event processing.
-
-        * 1 - Event has been registered and awaiting processing
-
-        * 2 - Event processing was delayed
-
-        * 3 - Event was processed
-
-        * 4 - Event has nothing to do with
-
-        * 5 - Event processing was blocked by internal rules
-
-        '
-    actionNotification:
+    appUserSubscriptionStatusResponse:
       type: object
-      description: Action notification details
+      description: User subscription status response object
       properties:
-        channel:
-          type: string
-          description: Sending channel
-        subscription_id:
-          type: integer
-          description: ID of subscription
-        recipient_id:
-          type: integer
-          description: ID of subscriber
-    eventAction:
-      type: object
-      description: Action that can be taken on event
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Global action identifier
-        ts:
-          type: string
-          format: date-time
-          description: Action create time in ISO format
-        type:
-          type: string
-          example: notification
-          description: Action type
-        finished:
-          type: boolean
-          description: Did action accomplished
-        notification:
-          $ref: '#/components/schemas/actionNotification'
-    eventAttachment:
-      type: object
-      description: Event additional files
-      properties:
-        name:
-          type: string
-          description: File name
-        mime:
-          type: string
-          example: application/pdf
-          description: File content mime type
-        content:
-          type: string
-          format: byte
-          example: eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=
-          description: File content in Base64
+        meta:
+          $ref: '#/components/schemas/responseMeta'
+        data:
+          type: object
+          description: An object describes subscription status related to user
+          properties:
+            active:
+              type: boolean
+              description: Does user subscribed on requested subscription
     appSubscriptionsResponse:
       type: object
       description: Available subscriptions response object
@@ -285,19 +277,27 @@ components:
                   description:
                     type: string
                     description: Subscription description
-    appUserSubscriptionStatusResponse:
+    eventAction:
       type: object
-      description: User subscription status response object
+      description: Action that can be taken on event
       properties:
-        meta:
-          $ref: '#/components/schemas/responseMeta'
-        data:
-          type: object
-          description: An object describes subscription status related to user
-          properties:
-            active:
-              type: boolean
-              description: Does user subscribed on requested subscription
+        id:
+          type: string
+          format: uuid
+          description: Global action identifier
+        ts:
+          type: string
+          format: date-time
+          description: Action create time in ISO format
+        type:
+          type: string
+          example: notification
+          description: Action type
+        finished:
+          type: boolean
+          description: Did action accomplished
+        notification:
+          $ref: '#/components/schemas/actionNotification'
   responses:
     '401':
       description: Unauthorized. Incorrect JWT fields or signature
