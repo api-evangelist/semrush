@@ -94,8 +94,6 @@ apis:
     url: collections/semrush-hermes-partner-api-api.postman_collection.json
   - type: OpenCollection
     url: collections/semrush-hermes-partner-api-api.opencollection.json
-  - type: GraphQL
-    url: graphql/semrush-graphql.md
 - aid: semrush:semrush-jwt-issuer-api
   name: Semrush JWT Issuer API
   description: The JWT Issuer API from Semrush — 1 operation(s) for jwt issuer.
@@ -112,8 +110,6 @@ apis:
     url: collections/semrush-jwt-issuer-api.postman_collection.json
   - type: OpenCollection
     url: collections/semrush-jwt-issuer-api.opencollection.json
-  - type: GraphQL
-    url: graphql/semrush-graphql.md
 - aid: semrush:semrush-partner-service-api
   name: Semrush Partner Service API
   description: The Partner Service API from Semrush — 1 operation(s) for partner service.
@@ -130,8 +126,6 @@ apis:
     url: collections/semrush-partner-service-api.postman_collection.json
   - type: OpenCollection
     url: collections/semrush-partner-service-api.opencollection.json
-  - type: GraphQL
-    url: graphql/semrush-graphql.md
 - aid: semrush:semrush-mcp
   name: Semrush MCP
   description: Semrush's first-party hosted Model Context Protocol server. Streamable HTTP transport only,
