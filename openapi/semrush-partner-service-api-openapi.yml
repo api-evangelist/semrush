@@ -38,10 +38,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errorMessage:
-      type: string
-      maxLength: 256
-      description: A text message describing an error
+    viewerActiveProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID of product
+        value:
+          type: integer
+          description: Amount of bought product (1 for one-time products, >1 in other cases)
+          minimum: 0
     viewerStatusResponse:
       type: object
       description: Viewer Status response object
@@ -79,17 +86,6 @@ components:
               - object
               - 'null'
               description: Reserved for future use
-    viewerActiveProduct:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: UUID of product
-        value:
-          type: integer
-          description: Amount of bought product (1 for one-time products, >1 in other cases)
-          minimum: 0
     responseMeta:
       type: object
       description: Response metadata
@@ -101,6 +97,10 @@ components:
           example: 200
         request_id:
           type: string
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
     viewerStatusRequest:
       type: object
       properties:
