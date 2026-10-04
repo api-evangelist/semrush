@@ -42,13 +42,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    issuerJwtResponse:
-      type: object
-      description: An object describing a JWT
-      properties:
-        jwt:
-          type: string
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...0NiL86tQkUG25G3Y1QC2ma94sfe4cXcs8_bYcpw2OzY
     errorMessage:
       type: string
       maxLength: 256
@@ -59,6 +52,13 @@ components:
         jwt:
           type: string
           description: "JWT by [specification](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token#generate-a-jwt), \nsigned by your secret key\n"
+          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...0NiL86tQkUG25G3Y1QC2ma94sfe4cXcs8_bYcpw2OzY
+    issuerJwtResponse:
+      type: object
+      description: An object describing a JWT
+      properties:
+        jwt:
+          type: string
           example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...0NiL86tQkUG25G3Y1QC2ma94sfe4cXcs8_bYcpw2OzY
   responses:
     '401':

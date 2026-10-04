@@ -38,17 +38,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    viewerActiveProduct:
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+    responseMeta:
       type: object
+      description: Response metadata
       properties:
-        id:
-          type: string
-          format: uuid
-          description: UUID of product
-        value:
+        success:
+          type: boolean
+        status_code:
           type: integer
-          description: Amount of bought product (1 for one-time products, >1 in other cases)
-          minimum: 0
+          example: 200
+        request_id:
+          type: string
     viewerStatusResponse:
       type: object
       description: Viewer Status response object
@@ -86,27 +90,23 @@ components:
               - object
               - 'null'
               description: Reserved for future use
-    responseMeta:
-      type: object
-      description: Response metadata
-      properties:
-        success:
-          type: boolean
-        status_code:
-          type: integer
-          example: 200
-        request_id:
-          type: string
-    errorMessage:
-      type: string
-      maxLength: 256
-      description: A text message describing an error
     viewerStatusRequest:
       type: object
       properties:
         user_id:
           type: integer
           description: Semrush user ID
+    viewerActiveProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID of product
+        value:
+          type: integer
+          description: Amount of bought product (1 for one-time products, >1 in other cases)
+          minimum: 0
   responses:
     '401':
       description: Unauthorized. Incorrect JWT fields or signature

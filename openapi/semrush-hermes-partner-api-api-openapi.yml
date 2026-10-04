@@ -119,6 +119,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    errorMessage:
+      type: string
+      maxLength: 256
+      description: A text message describing an error
+    appUserSubscriptionStatusResponse:
+      type: object
+      description: User subscription status response object
+      properties:
+        meta:
+          $ref: '#/components/schemas/responseMeta'
+        data:
+          type: object
+          description: An object describes subscription status related to user
+          properties:
+            active:
+              type: boolean
+              description: Does user subscribed on requested subscription
     eventState:
       type: integer
       enum:
@@ -140,6 +157,93 @@ components:
         * 5 - Event processing was blocked by internal rules
 
         '
+    responseMeta:
+      type: object
+      description: Response metadata
+      properties:
+        success:
+          type: boolean
+        status_code:
+          type: integer
+          example: 200
+        request_id:
+          type: string
+    eventAction:
+      type: object
+      description: Action that can be taken on event
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Global action identifier
+        ts:
+          type: string
+          format: date-time
+          description: Action create time in ISO format
+        type:
+          type: string
+          example: notification
+          description: Action type
+        finished:
+          type: boolean
+          description: Did action accomplished
+        notification:
+          $ref: '#/components/schemas/actionNotification'
+    actionNotification:
+      type: object
+      description: Action notification details
+      properties:
+        channel:
+          type: string
+          description: Sending channel
+        subscription_id:
+          type: integer
+          description: ID of subscription
+        recipient_id:
+          type: integer
+          description: ID of subscriber
+    appSubscriptionsResponse:
+      type: object
+      description: Available subscriptions response object
+      properties:
+        meta:
+          $ref: '#/components/schemas/responseMeta'
+        data:
+          type: object
+          description: An object describes all app subscriptions
+          properties:
+            subscriptions:
+              type: array
+              description: app subscriptions
+              items:
+                type: object
+                description: available subscription
+                properties:
+                  id:
+                    type: integer
+                    description: Subscription ID
+                  name:
+                    type: string
+                    description: Subscription name
+                  description:
+                    type: string
+                    description: Subscription description
+    eventAttachment:
+      type: object
+      description: Event additional files
+      properties:
+        name:
+          type: string
+          description: File name
+        mime:
+          type: string
+          example: application/pdf
+          description: File content mime type
+        content:
+          type: string
+          format: byte
+          example: eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=
+          description: File content in Base64
     eventResponse:
       type: object
       description: Create event response object
@@ -194,110 +298,6 @@ components:
           description: Additional files
           items:
             $ref: '#/components/schemas/eventAttachment'
-    eventAction:
-      type: object
-      description: Action that can be taken on event
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Global action identifier
-        ts:
-          type: string
-          format: date-time
-          description: Action create time in ISO format
-        type:
-          type: string
-          example: notification
-          description: Action type
-        finished:
-          type: boolean
-          description: Did action accomplished
-        notification:
-          $ref: '#/components/schemas/actionNotification'
-    appSubscriptionsResponse:
-      type: object
-      description: Available subscriptions response object
-      properties:
-        meta:
-          $ref: '#/components/schemas/responseMeta'
-        data:
-          type: object
-          description: An object describes all app subscriptions
-          properties:
-            subscriptions:
-              type: array
-              description: app subscriptions
-              items:
-                type: object
-                description: available subscription
-                properties:
-                  id:
-                    type: integer
-                    description: Subscription ID
-                  name:
-                    type: string
-                    description: Subscription name
-                  description:
-                    type: string
-                    description: Subscription description
-    responseMeta:
-      type: object
-      description: Response metadata
-      properties:
-        success:
-          type: boolean
-        status_code:
-          type: integer
-          example: 200
-        request_id:
-          type: string
-    errorMessage:
-      type: string
-      maxLength: 256
-      description: A text message describing an error
-    appUserSubscriptionStatusResponse:
-      type: object
-      description: User subscription status response object
-      properties:
-        meta:
-          $ref: '#/components/schemas/responseMeta'
-        data:
-          type: object
-          description: An object describes subscription status related to user
-          properties:
-            active:
-              type: boolean
-              description: Does user subscribed on requested subscription
-    eventAttachment:
-      type: object
-      description: Event additional files
-      properties:
-        name:
-          type: string
-          description: File name
-        mime:
-          type: string
-          example: application/pdf
-          description: File content mime type
-        content:
-          type: string
-          format: byte
-          example: eyJkYXRhX2tleSI6ImRhdGFfdmFsdWUxIn0=
-          description: File content in Base64
-    actionNotification:
-      type: object
-      description: Action notification details
-      properties:
-        channel:
-          type: string
-          description: Sending channel
-        subscription_id:
-          type: integer
-          description: ID of subscription
-        recipient_id:
-          type: integer
-          description: ID of subscriber
   responses:
     '401':
       description: Unauthorized. Incorrect JWT fields or signature
