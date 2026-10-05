@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/semrush/app-center-openapi/HEAD/openapi_spec.yaml",
+ "requested_url": "https://raw.githubusercontent.com/semrush/app-center-openapi/HEAD/openapi_spec.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 13633,
+ "sha256": "0ee655fd0afbef5fcacf86c2235a1ae78e843c95aef0dcef502568459befb59e",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
