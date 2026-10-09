@@ -216,3 +216,52 @@ gaps:
     Guru, SEO Classic Business). A buyer cannot map entitlement to price without contacting sales.
 
 checked: '2026-08-13'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - negotiated
+  units: []
+  plans:
+  - name: Free
+    access: free
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: SEO
+    access: paid
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Starter
+    access: paid
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Pro+
+    access: paid
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Advanced
+    access: paid
+    model: free
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Semrush for Enterprise
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units: []
+    periods: []
