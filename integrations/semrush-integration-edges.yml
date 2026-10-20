@@ -125,6 +125,33 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-compliance-assurance.py
   first_seen: '2026-10-20'
+- partner_name: Snowflake Marketplace
+  partner: snowflake
+  partner_match: aggregator
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://app.snowflake.com/marketplace/providers/GZU6Z6TM52W
+  category: data product listing
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Semrush
+    matched_domain: semrush.com
+    matched_by: domain
+    listings: 7
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 semrush.com for 'Semrush' (labelled identity step)
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
 method: searched
 checked:
 - google-workspace/integrations/google-workspace-integration-edges.yml
@@ -134,5 +161,6 @@ checked:
 - microsoft-teams/integrations/microsoft-teams-integration-edges.yml
 - monday-com/integrations/monday-com-integration-edges.yml
 - wordpress/integrations/wordpress-integration-edges.yml
+- https://app.snowflake.com/marketplace/providers
 source:
 - https://zapier.com/api/v4/apps/

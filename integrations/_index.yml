@@ -110,3 +110,31 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
+- slug: semrush-snowflake-marketplace
+  label: Snowflake Marketplace
+  partner: snowflake
+  partner_name: Snowflake Marketplace
+  category: data product listing
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  evidence: https://app.snowflake.com/marketplace/providers/GZU6Z6TM52W
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Semrush
+    matched_domain: semrush.com
+    matched_by: domain
+    listings: 7
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 semrush.com for 'Semrush' (labelled identity step)
+  status: not-a-workflow
+  arazzo: null
