@@ -25,6 +25,63 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Cloud Security Alliance STAR Registry
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://cloudsecurityalliance.org/star/registry/semrush-inc/services/semrush
+  category: Cloud security assurance
+  contract_reference:
+    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
+    spec_file: null
+    standard: CSA STAR
+    role: star-level-1
+    registered_name: Semrush Inc.
+    registry_id: semrush-inc
+    service_url: https://www.semrush.com/
+    matched_domain: semrush.com
+    matched_by: domain
+    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
+    levels:
+    - STAR Level 1
+    certified_products: []
+    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
+      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
+      = every instance marked (Deprecated) by the registry; service counts never recorded
+    detected_by: sweep-compliance-assurance.py
+    detected: '2026-10-20'
+  detected_by: sweep-compliance-assurance.py
+  first_seen: '2026-10-20'
+- partner_name: Snowflake Marketplace
+  partner: snowflake
+  partner_match: aggregator
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://app.snowflake.com/marketplace/providers/GZU6Z6TM52W
+  category: data product listing
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Semrush
+    matched_domain: semrush.com
+    matched_by: domain
+    listings: 7
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 semrush.com for 'Semrush' (labelled identity step)
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
 - partner_name: WordPress (own)
   partner: wordpress
   partner_match: mirror
@@ -95,63 +152,23 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: monday.com app
-- partner_name: Cloud Security Alliance STAR Registry
-  partner: null
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://cloudsecurityalliance.org/star/registry/semrush-inc/services/semrush
-  category: Cloud security assurance
-  contract_reference:
-    register: CSA STAR Registry (cloudsecurityalliance.org/star/registry)
-    spec_file: null
-    standard: CSA STAR
-    role: star-level-1
-    registered_name: Semrush Inc.
-    registry_id: semrush-inc
-    service_url: https://www.semrush.com/
-    matched_domain: semrush.com
-    matched_by: domain
-    identity_source: the service URL the organisation filed on its STAR listing (no lookup)
-    levels:
-    - STAR Level 1
-    certified_products: []
-    signal_note: STAR Level 1 (CAIQ self-assessment) = participation; certified_products = one entry per STAR Level
-      2 / STAR for AI Level 2 assessment TYPE (third-party certification, attestation, C-STAR, ValidAIted); lapsed
-      = every instance marked (Deprecated) by the registry; service counts never recorded
-    detected_by: sweep-compliance-assurance.py
-    detected: '2026-10-20'
-  detected_by: sweep-compliance-assurance.py
-  first_seen: '2026-10-20'
-- partner_name: Snowflake Marketplace
-  partner: snowflake
-  partner_match: aggregator
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
-  marketplace: snowflake-marketplace
-  channel: distribution
-  relationship: distribution-channel
+  relationship: platform-app
   direction: third-party
-  evidence: https://app.snowflake.com/marketplace/providers/GZU6Z6TM52W
-  category: data product listing
-  contract_reference:
-    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
-      P856 identity step)
-    spec_file: null
-    role: data-marketplace-seller
-    registered_name: Semrush
-    matched_domain: semrush.com
-    matched_by: domain
-    listings: 7
-    sample_listings: []
-    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
-    detected_by: sweep-data-marketplaces.py
-    detected: '2026-10-20'
-    identity_source: wikidata
-    identity_note: wikidata P856 semrush.com for 'Semrush' (labelled identity step)
-  detected_by: sweep-data-marketplaces.py
-  detected: '2026-10-20'
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/semrush-my-reports
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - Semrush My Reports
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: SALES_ANALYTICS
 method: searched
 checked:
 - google-workspace/integrations/google-workspace-integration-edges.yml
@@ -162,5 +179,6 @@ checked:
 - monday-com/integrations/monday-com-integration-edges.yml
 - wordpress/integrations/wordpress-integration-edges.yml
 - https://app.snowflake.com/marketplace/providers
+- hubspot/integrations/hubspot-integration-edges.yml
 source:
 - https://zapier.com/api/v4/apps/
