@@ -130,3 +130,9 @@ components:
         [Documentation](https://www.semrush.com/apps/docs/server-to-server-api/bearer-token)
 
         '
+x-provenance:
+  method: harvested
+  publisher: Semrush
+  source: https://raw.githubusercontent.com/semrush/app-center-openapi/HEAD/openapi_spec.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
