@@ -1,4 +1,4 @@
-# Semrush (semrush)
+# Semrush
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,51 +66,157 @@
 
 SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-search/semrush/refs/heads/main/apis.yml)
+**Areas:** Data · Search Engines · SEO · Marketing · Marketing Intelligence · Content Marketing · Advertising · Competitive Intelligence · Keyword Research · Backlinks · Rank Tracking · AI Search Visibility
 
-## Scope
+## Semrush on APIs.io
 
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for Semrush is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/semrush/](https://apis.io/providers/semrush/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (4)
 
-- Data
-- Search Engines
+- [Semrush Hermes Partner API](https://apis.io/apis/semrush/semrush-hermes-partner-api-api/) — The Hermes Partner API API from Semrush — 4 operation(s) for hermes partner api.
+- [Semrush JWT Issuer API](https://apis.io/apis/semrush/semrush-jwt-issuer-api/) — The JWT Issuer API from Semrush — 1 operation(s) for jwt issuer.
+- [Semrush Partner Service API](https://apis.io/apis/semrush/semrush-partner-service-api/) — The Partner Service API from Semrush — 1 operation(s) for partner service.
+- [Semrush MCP](https://apis.io/apis/semrush/semrush-mcp/) — Semrush's first-party hosted Model Context Protocol server. Streamable HTTP transport only, OAuth-gated with the single scope mcp.access, and metered…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-11-14
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Semrush
+GraphQL schemas.
 
-SEMrush is an all-in-one digital marketing tool that helps businesses improve their online visibility and attract more customers. This powerful software provides a range of tools and features for keyword research, website analysis, competitive analysis, and more. With SEMrush, businesses can track their online rankings, discover new keywords to target, analyze their competitors' strategies, and optimize their website for better search engine performance.
+- [Moved to /providers/semrush/](https://apis.io/graphqls/semrush/semrush-graphql/)
 
-- **Human URL:** [ https://developer.semrush.com/api/]( https://developer.semrush.com/api/)
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- Keywords
-- Marketing
-- Search Engine Marketing
-- Search Engines
+- [Semrush MCP](https://apis.io/servers/semrush/semrush-mcp/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation]( https://developer.semrush.com/api/)
-- [OpenAPI](properties/semrush-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/semrush.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/semrush.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Common Properties
+- [Semrush Agentic Access](https://apis.io/agentic-access/semrush/semrush-agentic-access/)
 
-- [GitHub Organization](https://github.com/semrush)
-- [LinkedIn](https://www.linkedin.com/company/semrush)
+#### Collections (4)
 
-## Maintainers
+Postman and Open Collection request collections.
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+- [Semrush](https://apis.io/collections/semrush/open-semrush/)
+- [Semrush Hermes Partner API API](https://apis.io/collections/semrush/open-semrush-hermes-partner-api-api/)
+- [Semrush Hermes Partner API JWT Issuer API](https://apis.io/collections/semrush/open-semrush-jwt-issuer-api/)
+- [Semrush Hermes Partner API Partner Service API](https://apis.io/collections/semrush/open-semrush-partner-service-api/)
+
+#### Overlays (3)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Semrush Hermes Partner Api Api Overlay](https://apis.io/overlays/semrush/semrush-hermes-partner-api-api-overlay/)
+- [Semrush Jwt Issuer Api Overlay](https://apis.io/overlays/semrush/semrush-jwt-issuer-api-overlay/)
+- [Semrush Partner Service Api Overlay](https://apis.io/overlays/semrush/semrush-partner-service-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Semrush Authentication](https://apis.io/security/semrush/semrush-authentication/)
+- [Semrush Domain Security](https://apis.io/security/semrush/semrush-domain-security/)
+- [Semrush Trust Center](https://apis.io/security/semrush/semrush-trust-center/)
+- [Semrush Vulnerability Disclosure](https://apis.io/security/semrush/semrush-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Semrush Scopes](https://apis.io/scopes/semrush/semrush-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Semrush Plans Pricing](https://apis.io/plans/semrush/semrush-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Semrush Rate Limits](https://apis.io/rate-limits/semrush/semrush-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Semrush Finops](https://apis.io/finops/semrush/semrush-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.semrush.com/)
+- [Documentation](https://developer.semrush.com/api/v4/)
+- [Getting started](https://developer.semrush.com/api/v4/get-started/quick-start/)
+- [API reference](https://developer.semrush.com/api/v4/seo/overview/)
+- [Pricing](https://www.semrush.com/prices/)
+- [Support](https://www.semrush.com/kb/)
+- [Blog](https://www.semrush.com/blog/)
+- [Terms of service](https://www.semrush.com/company/legal/terms-of-service/)
+- [Privacy policy](https://www.semrush.com/company/legal/privacy-policy/)
+- [GitHub](https://github.com/semrush)
+
+## API Evangelist rating
+
+**Kin Score 64.9** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 48.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 68.4 |
+| Developer ergonomics | 60.1 |
+| Access clarity | 92.1 |
+
+**Agent readiness 28.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 45.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/semrush/](https://apis.io/providers/semrush/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Semrush: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/semrush/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
