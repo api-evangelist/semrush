@@ -1,0 +1,216 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.semrush.com/pricing/seo-ai-search/
+sources:
+- https://www.semrush.com/pricing/seo-ai-search/
+- https://www.semrush.com/prices/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: SEO
+published: true
+note: Semrush SEO & AI Search plan pricing page; tiered subscriptions with monthly/annual toggle, add-ons,
+  and custom enterprise pricing.
+plan_count: 13
+currency: USD
+plans:
+- name: Free
+  price_text: $0 /mo
+  price: 0
+  currency: USD
+  period: month
+  unit: account
+  included_quota: 1 demo project, 10 reports per day across all vital tools, Help Center & Basic Onboarding
+- name: SEO
+  price_text: $ 117 . 33 /mo billed annually
+  price: 117.33
+  currency: USD
+  period: month
+  unit: account
+  included_quota: 5 websites to monitor, 500 keywords to track daily
+- name: SEO (monthly)
+  price_text: $ 139 monthly
+  price: 139
+  currency: USD
+  period: month
+  unit: account
+- name: Starter SEO + AI Search
+  price_text: $ 165 . 17 /mo billed annually
+  price: 165.17
+  currency: USD
+  period: month
+  unit: account
+  included_quota: 5 websites, 500 keywords daily, MCP access, 50 prompts daily, 300 AI visibility reports
+    per day
+- name: Starter SEO + AI Search (monthly)
+  price_text: $ 199 monthly
+  price: 199
+  currency: USD
+  period: month
+  unit: account
+- name: Pro+ SEO + AI Search
+  price_text: $ 248 . 17 /mo billed annually
+  price: 248.17
+  currency: USD
+  period: month
+  unit: account
+  included_quota: 15 websites, 1,500 keywords daily, 100 prompts daily
+- name: Pro+ SEO + AI Search (monthly)
+  price_text: $ 299 monthly
+  price: 299
+  currency: USD
+  period: month
+  unit: account
+- name: Advanced SEO + AI Search
+  price_text: Custom
+  period: none
+  included_quota: 40+ websites, 5,000+ keywords daily, Advanced API data integration, unlimited prompts
+- name: Semrush for Enterprise
+  price_text: Custom pricing available
+  period: none
+  included_quota: Custom integrations & API, SSO, dedicated account manager
+- name: Additional Users (add-on)
+  price_text: $ 45 /mo
+  price: 45
+  currency: USD
+  period: month
+  unit: user
+- name: Lead Generation (add-on)
+  price_text: $ 90 /mo
+  price: 90
+  currency: USD
+  period: month
+- name: Base Report (add-on)
+  price_text: $ 10 /mo
+  price: 10
+  currency: USD
+  period: month
+- name: Pro Report (add-on)
+  price_text: $ 20 /mo
+  price: 20
+  currency: USD
+  period: month
+rate_limit_statements:
+- 10 reports per day across all vital tools
+- 300 AI visibility reports per day
+- 500 keywords to track daily
+- 100 prompts to track daily
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  - seat
+  - subscription
+  units:
+  - object
+  - seat
+  plans:
+  - name: Free
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: SEO
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: SEO (monthly)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Starter SEO + AI Search
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Starter SEO + AI Search (monthly)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Pro+ SEO + AI Search
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Pro+ SEO + AI Search (monthly)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - object
+    periods:
+    - month
+  - name: Advanced SEO + AI Search
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Semrush for Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Additional Users (add-on)
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Lead Generation (add-on)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Base Report (add-on)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Pro Report (add-on)
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods:
+    - month
