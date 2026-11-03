@@ -104,7 +104,7 @@ rate_limit_statements:
 - 500 keywords to track daily
 - 100 prompts to track daily
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - hybrid
