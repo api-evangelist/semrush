@@ -5,9 +5,18 @@ artifacts:
   agentic-access/semrush-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  ai-preferences/semrush-ai-preferences.yml:
+    method: harvested
+    evidence: declared in the artifact
   authentication/semrush-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/semrush-changelog.yml:
     method: searched
     evidence: declared in the artifact
@@ -35,6 +44,9 @@ artifacts:
   collections/semrush.postman_collection.json:
     method: derived
     evidence: openapi/semrush
+  compliance/semrush-compliance.yml:
+    method: harvested
+    evidence: declared in the artifact
   components/semrush-components.yml:
     method: searched
     evidence: declared in the artifact
@@ -44,8 +56,14 @@ artifacts:
   conventions/semrush-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-license/semrush-data-license.yml:
+    method: harvested
+    evidence: declared in the artifact
   data-model/semrush-data-model.yml:
     method: derived
+    evidence: declared in the artifact
+  eligibility/semrush-eligibility.yml:
+    method: harvested
     evidence: declared in the artifact
   errors/semrush-problem-types.yml:
     method: searched
@@ -62,6 +80,9 @@ artifacts:
   heartbeat/2026-11-06.yml:
     method: unknown
     evidence: no authorship recorded
+  heartbeat/2026-11-13.yml:
+    method: unknown
+    evidence: no authorship recorded
   integrations/_index.yml:
     method: generated
     evidence: carries an API Evangelist house phrase
@@ -71,7 +92,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -137,6 +158,9 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/semrush-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -183,6 +207,9 @@ artifacts:
   plans/semrush-price-estimates.yml:
     method: unknown
     evidence: no authorship recorded
+  privacy/semrush-privacy-policy.yml:
+    method: harvested
+    evidence: declared in the artifact
   rate-limits/semrush-rate-limits.yml:
     method: searched
     evidence: declared in the artifact
@@ -215,6 +242,9 @@ artifacts:
     evidence: declared in the artifact
   sla/semrush-sla.yml:
     method: generated
+    evidence: declared in the artifact
+  terms/semrush-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   well-known/semrush-mcp-oauth-authorization-server.json:
     method: unknown
